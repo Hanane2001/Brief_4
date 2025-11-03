@@ -1,0 +1,16 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --second-color: black;
+    --btn-color: #213555;
+    --color-cards: #D8C4B6;
+    --color-text: #3E5879;
+    --color-main-bg: #F5EFE7;
+    --bg-color: white;
+    --font-text: 'Poppins';
+}
