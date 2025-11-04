@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <header class="flex justify-around items-center">
+        <img class="w-20 h-15" src="img/logo.png" alt="logo">
+        <nav class="flex gap-20">
+            <ul class="flex items-center gap-20">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="guid.html">Guid</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="mydeck.html">MyDeck</a></li>
+                <li><a href="favorite.html">Favorite</a></li>
+            </ul>
+            <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
+        </nav>
+    </header>
+    <main class="flex flex-col justify-around items-center h-[185vh] gap-10">
+        <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-center">Buy, sell,
+            and trade your favorite <br> Pokémon cards — <span class="text-(--btn-color)">safely and easily!</span></h1>
+        <div class="flex gap-10">
+            <button class="cursor-pointer w-20">Mythic</button>
+            <button class="cursor-pointer w-20">Legendary</button>
+            <button class="cursor-pointer w-20">Epic</button>
+            <button class="cursor-pointer w-20">Rare</button>
+            <button class="cursor-pointer w-20">Common</button>
+        </div>
+        <div class="grid grid-cols-3 gap-10">
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                    <div class="flex">
+                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                        <h1
+                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                            001
+                        </h1>
+                    </div>
+                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                        <div class="flex gap-10">
+                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                            </h2>
+                        </div>
+                        <p class="text-gray-500">Seed Pokémon</p>
+                        <div class="grid grid-cols-3">
+                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Water</span></p>
+                            <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                    class="text-gray-700 font-bold">Electric</span></p>
+                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                    class="text-gray-700 font-bold">Fire</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-center font-bold">
+                        <p>Rare: 1/10</p>
+                        <p>Description</p>
+                        <p>100$</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button
+                            class="bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)">Favoris</button>
+                        <button class="bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)">Add To
+                            Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex gap-10 mb-12">
+            <button
+                class="w-30 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer"
+                type="submit"><img class="w-10 h-10" src="img/icons8-left-arrow-50.png" alt="left-arrow"></button>
+            <button
+                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                type="submit">1</button>
+            <button
+                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                type="submit">2</button>
+            <button
+                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                type="submit">3</button>
+            <button
+                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                type="submit">4</button>
+            <button
+                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                type="submit">5</button>
+            <button
+                class="w-30 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer"
+                type="submit"><img class="w-10 h-10" src="img/icons8-right-arrow-50.png" alt="right-arrow"></button>
+        </div>
+    </main>
+    <footer>
+        <div class="flex justify-center-safe gap-20">
+            <div>
+                <h2 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">POKEMON</h2>
+                <img class="w-30" src="img/pokemon-5426712_1920.png" alt="pokemon">
+            </div>
+            <div class="leading-8">
+                <h4 class="font-extrabold">Company</h4>
+                <div>
+                    <ul class="text-(--color-text)">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Mobile</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="leading-8">
+                <h4 class="font-extrabold">Contact</h4>
+                <ul class="text-(--color-text) self-end">
+                    <li><a href="#">Help/FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Address</a></li>
+                </ul>
+            </div>
+            <div class="leading-8">
+                <h4 class="font-extrabold">More</h4>
+                <ul class="text-(--color-text) self-end">
+                    <li><a href="#">Favorite</a></li>
+                    <li><a href="#">MyDeck</a></li>
+                    <li><a href="#">Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-center text-(--color-text)">All rights reserved@genZdevs.co</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</html>

@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="">
+<body>
     <header class="flex justify-around items-center">
         <img class="w-20 h-15" src="img/logo.png" alt="logo">
         <nav class="flex gap-20">
@@ -23,27 +23,78 @@
             <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
         </nav>
     </header>
-    <main>
-        <h1>HOW TO <span>PLAY</span></h1>
-        <div class="flex">
-            <div>
+    <main class="flex flex-col bg-(--color-main-bg) text-center justify-center items-center gap-10 mt-[2%] mb-[2%] pb-[2%]">
+        <h1 class="font-(family-name:--font-text) text-(--bg-color) font-extrabold text-3xl text-center mt-[2%]">HOW TO <span
+                class=" text-(--color-text)">PLAY</span></h1>
+        <div class="flex text-(--btn-color) font-bold justify-around">
+            <div class="bg-(--color-cards) rounded-lg w-[20%] p-[2%]">
                 <p>Build Your Deck – Each player uses a 9-card deck with Pokémon, Energy, and Trainer cards.</p>
-                <img src="img/Eevee-removebg-preview.png" alt="">
+                <img class="w-[30%] justify-self-center" src="img/Eevee-removebg-preview.png" alt="">
             </div>
-            <div>
+            <div class="bg-(--color-cards) rounded-lg w-[20%] p-[2%]">
                 <p>Battle Pokémon – Use your Active Pokémon to attack your opponent’s and try to Knock Out theirs.</p>
-                <img src="img/Eevee-removebg-preview.png" alt="">
+                <img class="w-[30%] justify-self-center" src="img/Eevee-removebg-preview.png" alt="">
             </div>
-            <div>
+            <div class="bg-(--color-cards) rounded-lg w-[20%] p-[2%]">
                 <p>Take Prize Cards – Every time you Knock Out an opponent’s Pokémon, take one Prize card.</p>
-                <img src="img/Eevee-removebg-preview.png" alt="">
+                <img class="w-[30%] justify-self-center" src="img/Eevee-removebg-preview.png" alt="">
             </div>
-            <div>
-                <p>Win the Game – The first player to take all 6 Prize cards or leave the opponent with no Pokémon wins!</p>
-                <img src="img/Eevee-removebg-preview.png" alt="">
+            <div class="bg-(--color-cards) rounded-lg w-[20%] p-[2%]">
+                <p>Win the Game – The first player to take all 6 Prize cards or leave the opponent with no Pokémon wins!
+                </p>
+                <img class="w-[30%] justify-self-center" src="img/Eevee-removebg-preview.png" alt="">
             </div>
         </div>
     </main>
+    <section class="flex justify-center items-center mt-[2%] mb-[2%]">
+        <img class="w-[25%]" src="img/pokemon-5426712_1920.png" alt="">
+        <div>
+            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-center">Your
+                adventure starts here — <br>explore the world of Pokémon cards!</h1>
+            <img src="img/Pokémon-removebg-preview.png" alt="">
+        </div>
+    </section>
+    <section class="flex justify-around items-center mt-[2%] mb-[2%]">
+        <div class="flex flex-col gap-y-8">
+            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-left">Card Rarity
+            </h1>
+            <p class="bg-(--color-cards) w-150 rounded-lg font-semibold text-center">Common ⭐ – Easy to find, basic
+                Pokémon.
+            </p>
+            <p class="bg-(--color-cards) w-150 rounded-lg font-semibold text-center">Rare ⭐⭐ – Harder to find, stronger
+                cards.</p>
+            <p class="bg-(--color-cards) w-150 rounded-lg font-semibold text-center">Epic ⭐⭐⭐ – Very rare, powerful
+                cards.
+            </p>
+            <p class="bg-(--color-cards) w-150 rounded-lg font-semibold text-center">Legendary ⭐⭐⭐⭐ – Extremely rare,
+                iconic
+                Pokémon.</p>
+        </div>
+        <img class="w-[25%]" src="img/main.png" alt="">
+    </section>
+    <section class="flex justify-around items-center mt-[2%] mb-[2%]">
+        <div class="self-start">
+            <h1 class="font-(family-name:--font-text) text-(--btn-color) font-extrabold text-3xl text-left">FAQ</h1>
+            <p class="font-light">Got questions? We’ve got answers to help you catch them all!</p>
+        </div>
+        <div class="font-light text-center flex flex-col gap-y-8">
+            <details class="bg-(--color-main-bg) w-100 rounded-lg">
+                <summary>What is the Pokémon Card Game?</summary>
+                The Pokémon Card Game is a collectible card game where players build decks of Pokémon, Trainer, and
+                Energy cards to battle each other and collect Prize cards.
+            </details>
+            <details class="bg-(--color-main-bg) w-100 rounded-lg">
+                <summary>How do I start my collection?</summary>
+                Start by buying a starter deck or booster packs. Collect cards, organize them, and gradually build a
+                stronger deck.
+            </details>
+            <details class="bg-(--color-main-bg) w-100 rounded-lg">
+                <summary>Are there rules for beginners?</summary>
+                Yes, the Guide page explains all the rules step by step. Start with basic Pokémon and simple
+                strategies, then learn advanced tactics as you play.
+            </details>
+        </div>
+    </section>
     <footer>
         <div class="flex justify-center-safe gap-20">
             <div>

@@ -1,6 +1,6 @@
 * {
-    padding: 0;
-    margin: 0;
+    /* padding: 0;
+    margin: 0; */
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
@@ -13,4 +13,21 @@
     --color-main-bg: #F5EFE7;
     --bg-color: white;
     --font-text: 'Poppins';
+}
+
+/* summary{
+    direction: rtl;
+} */
+ summary {
+  list-style: none;
+  cursor: pointer;
+}
+summary::after{
+    content: "▼"; 
+}
+summary::-webkit-details-marker {
+  float: right;
+}
+.padding-t{
+    padding-top: 15px;
 }
