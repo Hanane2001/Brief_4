@@ -23,7 +23,7 @@
             <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
         </nav>
     </header>
-    <main class="flex items-center justify-center px-8 mt-[2%] mb-[2%]">
+    <main class="flex items-center justify-center px-8 mt-[2%] mb-[2%] max-md:flex-col max-md:gap-6">
         <div class="flex flex-col gap-4 w-full max-w-3xl">
             <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">POKEMON</h1>
             <p class="text-xl leading-9">Welcome to the world of Pokémon Cards, where strategy meets collection!
@@ -33,9 +33,9 @@
             </p>
             <button class="bg-(--btn-color) text-white rounded-sm w-40 h-10"><a href="#">More</a></button>
         </div>
-        <img src="img/télécharger__1_-removebg-preview.png" alt="dragone">
+        <img id="image-rotate" src="img/télécharger__1_-removebg-preview.png" alt="dragone">
     </main>
-    <section class="flex justify-around items-center mt-[2%] mb-[2%]">
+    <section class="flex justify-around items-center px-8 mt-[2%] mb-[2%] max-md:flex-col-reverse max-md:gap-8">
         <img class="w-80 object-contain" src="img/télécharger__2_-removebg-preview.png" alt="pikatcho">
         <div class="max-w-xl space-y-6 flex flex-col gap-4">
             <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">PLAY :)</h1>
@@ -46,15 +46,15 @@
                 type="submit"><img class="w-10 h-10" src="img/right-arrow.png" alt="right-arrow"></button>
         </div>
     </section>
-    <section class="flex flex-col gap-10 mt-[2%] mb-[2%] h-[70vh]">
-        <div class="flex items-center justify-around gap-60">
-            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">Start Your Collection
+    <section class="flex flex-col gap-y-10 mt-[2%] mb-[2%] px-8">
+        <div class="flex justify-around items-center gap-60 max-md:gap-5">
+            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl max-md:text-2xl">Start Your Collection
             </h1>
             <button
-                class="w-50 h-10 p-2 text-(--btn-color) bg-(--color-cards) rounded-sm flex items-center justify-center hover:bg-(--btn-color) hover:text-(--bg-color) cursor-pointer"><a
+                class="w-[10%] h-10 text-(--btn-color) bg-(--color-cards) rounded-sm flex items-center justify-center font-bold hover:bg-(--btn-color) hover:text-(--bg-color) cursor-pointer max-md:w-[30%]"><a
                     href="#">Go To Market</a></button>
         </div>
-        <div class="flex flex-wrap justify-center items-center h-[40vh] px-10 gap-12">
+        <div class="grid grid-cols-4 px-[12%] max-lg:grid-cols-2 max-md:grid-cols-1">
             <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
@@ -169,8 +169,8 @@
                 </div>
         </div>
     </section>
-    <footer class="mt-[2%] mb-[2%]">
-        <div class="flex justify-center-safe gap-20">
+    <footer class="mt-[2%] mb-[2%] max-md:text-center">
+        <div class="flex justify-center-safe gap-20 max-md:flex-col max-md:items-center max-md:gap-10">
             <div>
                 <h2 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">POKEMON</h2>
                 <img class="w-30" src="img/pokemon-5426712_1920.png" alt="pokemon">
@@ -204,6 +204,6 @@
         </div>
         <p class="text-center text-(--color-text)">All rights reserved@genZdevs.co</p>
     </footer>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
-
 </html>

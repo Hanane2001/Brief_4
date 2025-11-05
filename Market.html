@@ -23,19 +23,19 @@
             <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
         </nav>
     </header>
-    <main class="flex flex-col justify-around items-center h-[185vh] gap-10">
+    <main class="flex flex-col justify-around items-center mt-[2%] mb-[2%] gap-10">
         <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-center">Buy, sell,
             and trade your favorite <br> Pokémon cards — <span class="text-(--btn-color)">safely and easily!</span></h1>
-        <div class="flex gap-10">
-            <button class="cursor-pointer w-20">Mythic</button>
-            <button class="cursor-pointer w-20">Legendary</button>
-            <button class="cursor-pointer w-20">Epic</button>
-            <button class="cursor-pointer w-20">Rare</button>
-            <button class="cursor-pointer w-20">Common</button>
+        <div class="flex justify-around gap-10 max-md:gap-5">
+            <button class="cursor-pointer">Mythic</button>
+            <button class="cursor-pointer">Legendary</button>
+            <button class="cursor-pointer">Epic</button>
+            <button class="cursor-pointer">Rare</button>
+            <button class="cursor-pointer">Common</button>
         </div>
-        <div class="grid grid-cols-3 gap-10">
+        <div class="grid grid-cols-3 gap-10 max-md:grid-cols-1">
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id1">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative"  id="id2">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative"  id="id3">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -164,7 +164,7 @@
                 </div>
             </div>
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative"  id="id4">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -207,7 +207,7 @@
                 </div>
             </div>
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative"  id="id5">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -250,7 +250,7 @@
                 </div>
             </div>
             <div>
-                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
+                <div class="border-7 rounded-lg border-(--btn-color) w-61 relative"  id="id6">
                     <div class="flex">
                         <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
                         <h1
@@ -293,32 +293,32 @@
                 </div>
             </div>
         </div>
-        <div class="flex gap-10 mb-12">
+        <div class="flex gap-15 mb-12 max-md:gap-2">
             <button
-                class="w-30 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer"
+                class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10"
                 type="submit"><img class="w-10 h-10" src="img/icons8-left-arrow-50.png" alt="left-arrow"></button>
             <button
-                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
                 type="submit">1</button>
             <button
-                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
                 type="submit">2</button>
             <button
-                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
                 type="submit">3</button>
             <button
-                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
                 type="submit">4</button>
             <button
-                class="w-15 h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer"
+                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
                 type="submit">5</button>
             <button
-                class="w-30 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer"
+                class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10"
                 type="submit"><img class="w-10 h-10" src="img/icons8-right-arrow-50.png" alt="right-arrow"></button>
         </div>
     </main>
     <footer>
-        <div class="flex justify-center-safe gap-20">
+        <div class="flex justify-center-safe gap-20 max-md:flex-col max-md:items-center max-md:gap-10">
             <div>
                 <h2 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">POKEMON</h2>
                 <img class="w-30" src="img/pokemon-5426712_1920.png" alt="pokemon">
@@ -352,7 +352,6 @@
         </div>
         <p class="text-center text-(--color-text)">All rights reserved@genZdevs.co</p>
     </footer>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
 </html>
