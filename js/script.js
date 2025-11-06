@@ -8,11 +8,16 @@ const cardContainer = document.getElementById("card-container");
 const favContainer = document.getElementById("favorite-card-container");
 const deckContainer = document.getElementById("card-container-order");
 const cardCategory = document.getElementById('category');
+const cardCategoryFav = document.getElementById('category-fav'); 
+const cardCategoryDeck = document.getElementById('category-deck');
 const paginationContainer = document.getElementById("pagination");
 const paginationFavContainer = document.getElementById("pagination-fav");
 const paginationDeckContainer = document.getElementById("pagination-deck");
 
-// Chargement des données pour la page market
+let filteredCardsData = [];
+let filteredFavData = [];
+let filteredDeckData = [];
+
 if (cardContainer) {
   fetch('js/pokemondata1.json')
     .then(response => {
@@ -21,12 +26,12 @@ if (cardContainer) {
     })
     .then(data => {
       cardsData = data;
-      renderCard(cardsData, currentPage);
+      filteredCardsData = [...cardsData];
+      renderCard(filteredCardsData, currentPage);
     })
     .catch(error => console.error('Error while loading cards :', error));
 }
 
-// Fonction principale pour afficher les cartes
 function renderCard(data, page = 1) {
   if (!cardContainer) return;
 
@@ -81,14 +86,16 @@ function renderCard(data, page = 1) {
   });
 }
 
-// Fonction pour afficher les favoris avec pagination
 function renderFavoriteCards(page = 1) {
   if (!favContainer) return;
 
   const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+  
+  const dataToRender = filteredFavData.length > 0 ? filteredFavData : favCards;
+  
   const start = (page - 1) * cardsPerPage;
   const end = start + cardsPerPage;
-  const paginatedData = favCards.slice(start, end);
+  const paginatedData = dataToRender.slice(start, end);
 
   if (paginatedData.length === 0) {
     favContainer.innerHTML = `<p class="text-center text-gray-500 text-lg">No card in your favorites</p>`;
@@ -136,13 +143,13 @@ function renderFavoriteCards(page = 1) {
     `;
   });
 
-  // Événements pour les favoris
   document.querySelectorAll('.remove-favourite').forEach(btn => {
     btn.addEventListener('click', () => {
       const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
       const index = parseInt(btn.getAttribute('data-index'));
       favCards.splice(index, 1);
       localStorage.setItem("userFavouriteCards", JSON.stringify(favCards));
+      filteredFavData = [];
       renderFavoriteCards(currentPageFav);
     });
   });
@@ -162,23 +169,24 @@ function renderFavoriteCards(page = 1) {
     });
   });
 
-  // Pagination pour les favoris
   if (paginationFavContainer) {
-    renderPagination(favCards.length, page, paginationFavContainer, currentPageFav, (newPage) => {
+    renderPagination(dataToRender.length, page, paginationFavContainer, currentPageFav, (newPage) => {
       currentPageFav = newPage;
       renderFavoriteCards(newPage);
     });
   }
 }
 
-// Fonction pour afficher le deck avec pagination
 function renderDeckCards(page = 1) {
   if (!deckContainer) return;
 
   const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+
+  const dataToRender = filteredDeckData.length > 0 ? filteredDeckData : userCards;
+  
   const start = (page - 1) * cardsPerPage;
   const end = start + cardsPerPage;
-  const paginatedData = userCards.slice(start, end);
+  const paginatedData = dataToRender.slice(start, end);
 
   if (paginatedData.length === 0) {
     deckContainer.innerHTML = `<p class="text-center text-gray-500 text-xl font-semibold mt-10">You haven't bought any cards yet</p>`;
@@ -224,7 +232,6 @@ function renderDeckCards(page = 1) {
     `;
   });
 
-  // Événements pour le deck
   document.querySelectorAll(".sell-button").forEach(button => {
     button.addEventListener("click", e => {
       const index = parseInt(e.target.dataset.index);
@@ -233,6 +240,7 @@ function renderDeckCards(page = 1) {
       alert(`You sold the card "${soldCard.name}"`);
       userCards.splice(index, 1);
       localStorage.setItem("usercards", JSON.stringify(userCards));
+      filteredDeckData = [];
       renderDeckCards(currentPageDeck);
     });
   });
@@ -252,16 +260,42 @@ function renderDeckCards(page = 1) {
     });
   });
 
-  // Pagination pour le deck
   if (paginationDeckContainer) {
-    renderPagination(userCards.length, page, paginationDeckContainer, currentPageDeck, (newPage) => {
+    renderPagination(dataToRender.length, page, paginationDeckContainer, currentPageDeck, (newPage) => {
       currentPageDeck = newPage;
       renderDeckCards(newPage);
     });
   }
 }
 
-// Fonction générique de pagination
+function filterData(data, type) {
+  if (type === "all") {
+    return data;
+  } else {
+    return data.filter(card => card.MRarty === type);
+  }
+}
+
+function handleMarketFilter(type) {
+  filteredCardsData = filterData(cardsData, type);
+  currentPage = 1;
+  renderCard(filteredCardsData, currentPage);
+}
+
+function handleFavFilter(type) {
+  const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+  filteredFavData = filterData(favCards, type);
+  currentPageFav = 1;
+  renderFavoriteCards(currentPageFav);
+}
+
+function handleDeckFilter(type) {
+  const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+  filteredDeckData = filterData(userCards, type);
+  currentPageDeck = 1;
+  renderDeckCards(currentPageDeck);
+}
+
 function renderPagination(totalCards, page, container, currentPage, onPageChange) {
   if (!container) return;
 
@@ -359,29 +393,39 @@ if (cardCategory) {
   cardCategory.addEventListener('click', (e) => {
     if (e.target.tagName === "BUTTON") {
       const type = e.target.value;
-      if (type === "all") renderCard(cardsData);
-      else {
-        const filtrageData = cardsData.filter(card => card.MRarty === type);
-        renderCard(filtrageData);
-      }
+      handleMarketFilter(type);
     }
   });
 }
 
-// Initialisation au chargement de la page
+if (cardCategoryFav) {
+  cardCategoryFav.addEventListener('click', (e) => {
+    if (e.target.tagName === "BUTTON") {
+      const type = e.target.value;
+      handleFavFilter(type);
+    }
+  });
+}
+
+if (cardCategoryDeck) {
+  cardCategoryDeck.addEventListener('click', (e) => {
+    if (e.target.tagName === "BUTTON") {
+      const type = e.target.value;
+      handleDeckFilter(type);
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialiser les favoris si on est sur la page favoris
   if (favContainer) {
     renderFavoriteCards(currentPageFav);
   }
 
-  // Initialiser le deck si on est sur la page deck
   if (deckContainer) {
     renderDeckCards(currentPageDeck);
   }
 });
 
-// Gestion du panier
 const popup = document.getElementById('panier-popup');
 const panierButton = document.getElementById('card-button');
 
@@ -443,59 +487,51 @@ function renderMyCard() {
         <button id="order-panier" class="bg-[var(--btn-color)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--color-text)] transition">Order</button>
       </div>`;
 
-    // Événement pour fermer le popup
     document.getElementById('close-popup').addEventListener('click', () => {
       popup.classList.add('hidden');
     });
 
-    // Événement pour vider le panier
     document.getElementById('clear-panier').addEventListener('click', () => {
       localStorage.removeItem('usercards');
-      renderMyCard(); // Réinitialiser l'affichage
-      // Re-render deck si on est sur la page deck
+      renderMyCard();
       if (deckContainer) renderDeckCards(currentPageDeck);
     });
 
-    // Événement pour commander
     document.getElementById('order-panier').addEventListener('click', () => {
       alert('Order placed successfully!');
       localStorage.removeItem('usercards');
-      renderMyCard(); // Réinitialiser l'affichage
+      renderMyCard();
       if (deckContainer) renderDeckCards(currentPageDeck);
     });
 
-    // Événements pour supprimer une carte
     document.querySelectorAll('.remove-card').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const index = parseInt(e.target.getAttribute('data-index'));
         myCards.splice(index, 1);
         localStorage.setItem('usercards', JSON.stringify(myCards));
-        renderMyCard(); // Regénérer l'affichage
-        // Re-render deck si on est sur la page deck
+        renderMyCard();
         if (deckContainer) renderDeckCards(currentPageDeck);
       });
     });
 
-    // Événements pour augmenter la quantité
     document.querySelectorAll('.qty-plus').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Empêcher la propagation
+        e.stopPropagation();
         const index = parseInt(e.target.getAttribute('data-index'));
         myCards[index].currentQty++;
         localStorage.setItem('usercards', JSON.stringify(myCards));
-        renderMyCard(); // Regénérer l'affichage
+        renderMyCard(); 
       });
     });
 
-    // Événements pour diminuer la quantité
     document.querySelectorAll('.qty-minus').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Empêcher la propagation
+        e.stopPropagation();
         const index = parseInt(e.target.getAttribute('data-index'));
         if (myCards[index].currentQty > 1) {
           myCards[index].currentQty--;
           localStorage.setItem('usercards', JSON.stringify(myCards));
-          renderMyCard(); // Regénérer l'affichage
+          renderMyCard();
         }
       });
     });
