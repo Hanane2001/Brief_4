@@ -31,3 +31,8 @@ summary::-webkit-details-marker {
 .padding-t{
     padding-top: 15px;
 }
+
+/* Menu toggle avec checkbox */
+#menu-toggle:checked + label + nav {
+    max-height: 500px; /* ajuste selon la hauteur du menu */
+}

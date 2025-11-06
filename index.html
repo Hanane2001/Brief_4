@@ -10,19 +10,46 @@
 </head>
 
 <body>
-    <header class="flex justify-around items-center">
-        <img class="w-20 h-15" src="img/logo.png" alt="logo">
-        <nav class="flex gap-20">
-            <ul class="flex items-center gap-20">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="guid.html">Guid</a></li>
-                <li><a href="market.html">Market</a></li>
-                <li><a href="mydeck.html">MyDeck</a></li>
-                <li><a href="favorite.html">Favorite</a></li>
-            </ul>
-            <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
-        </nav>
-    </header>
+<header class="flex justify-between items-center p-4 bg-white relative z-100">
+    <img class="w-20 h-15" src="img/logo.png" alt="logo">
+
+    <!-- Checkbox pour toggle -->
+    <input type="checkbox" id="menu-toggle" class="hidden" />
+    <label for="menu-toggle" class="hidden block max-md:flex max-md:text-2xl">&#9776;</label>
+
+    <!-- Menu -->
+    <nav class="flex gap-6 max-md:absolute max-md:top-full max-md:left-0 max-md:w-full max-md:flex-col max-md:bg-white max-md:shadow-md max-md:overflow-hidden max-md:max-h-0 transition-all duration-300">
+        <ul class="flex gap-6 items-center max-md:flex-col max-md:gap-4 p-0 m-0">
+            <li><a href="index.html" class="block p-2">Home</a></li>
+            <li><a href="guid.html" class="block p-2">Guid</a></li>
+            <li><a href="market.html" class="block p-2">Market</a></li>
+            <li><a href="mydeck.html" class="block p-2">MyDeck</a></li>
+            <li><a href="favorite.html" class="block p-2">Favorite</a></li>
+        </ul>
+        <button class="bg-(--btn-color) hover:bg-(--color-text) text-white p-2 rounded-sm w-20 mt-2 max-md:mb-[5%] max-md:mx-auto block" type="submit" id="card-button">Cart</button>
+    </nav>
+</header>
+
+
+    <div id="panier-popup"
+        class="hidden fixed top-5 right-5 w-[420px] bg-[var(--color-cards)] rounded-2xl shadow-2xl p-5 z-50 transition-all duration-300 overflow-y-auto max-h-[80vh] max-md:w-[90%] z-200 max-md:z-200">
+        <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
+        <h2 class="text-center font-bold text-xl mb-4">Mon Panier</h2>
+        <div id="popup-content" class="flex flex-col gap-4"></div>
+        <div class="flex justify-between items-center font-bold text-lg mt-6">
+            <span>Total</span>
+            <span id="total-price">0$</span>
+        </div>
+        <div class="flex justify-between mt-4">
+            <button id="clear-panier"
+                class="bg-[var(--color-text)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--btn-color)] transition">Clear</button>
+            <button
+                class="bg-[var(--btn-color)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--color-text)] transition">Order</button>
+        </div>
+    </div>
+    <div id="my-card-container">
+
+    </div>
     <main class="flex items-center justify-center px-8 mt-[2%] mb-[2%] max-md:flex-col max-md:gap-6">
         <div class="flex flex-col gap-4 w-full max-w-3xl">
             <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl">POKEMON</h1>
@@ -48,7 +75,8 @@
     </section>
     <section class="flex flex-col gap-y-10 mt-[2%] mb-[2%] px-8">
         <div class="flex justify-around items-center gap-60 max-md:gap-5">
-            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl max-md:text-2xl">Start Your Collection
+            <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl max-md:text-2xl">Start
+                Your Collection
             </h1>
             <button
                 class="w-[10%] h-10 text-(--btn-color) bg-(--color-cards) rounded-sm flex items-center justify-center font-bold hover:bg-(--btn-color) hover:text-(--bg-color) cursor-pointer max-md:w-[30%]"><a
@@ -56,117 +84,117 @@
         </div>
         <div class="grid grid-cols-4 px-[12%] max-lg:grid-cols-2 max-md:grid-cols-1">
             <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
-                    <div class="flex">
-                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
-                        <h1
-                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-                            001
-                        </h1>
+                <div class="flex">
+                    <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                    <h1
+                        class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                        001
+                    </h1>
+                </div>
+                <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                    <div class="flex gap-10">
+                        <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                        <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                        </h2>
                     </div>
-                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-                        <div class="flex gap-10">
-                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
-                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
-                            </h2>
-                        </div>
-                        <p class="text-gray-500">Seed Pokémon</p>
-                        <div class="grid grid-cols-3">
-                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
-                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
-                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Water</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Electric</span></p>
-                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
-                                    class="text-gray-700 font-bold">Fire</span></p>
-                        </div>
+                    <p class="text-gray-500">Seed Pokémon</p>
+                    <div class="grid grid-cols-3">
+                        <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                        <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                        <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Water</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Electric</span></p>
+                        <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                class="text-gray-700 font-bold">Fire</span></p>
                     </div>
                 </div>
+            </div>
             <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
-                    <div class="flex">
-                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
-                        <h1
-                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-                            001
-                        </h1>
+                <div class="flex">
+                    <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                    <h1
+                        class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                        001
+                    </h1>
+                </div>
+                <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                    <div class="flex gap-10">
+                        <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                        <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                        </h2>
                     </div>
-                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-                        <div class="flex gap-10">
-                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
-                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
-                            </h2>
-                        </div>
-                        <p class="text-gray-500">Seed Pokémon</p>
-                        <div class="grid grid-cols-3">
-                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
-                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
-                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Water</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Electric</span></p>
-                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
-                                    class="text-gray-700 font-bold">Fire</span></p>
-                        </div>
+                    <p class="text-gray-500">Seed Pokémon</p>
+                    <div class="grid grid-cols-3">
+                        <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                        <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                        <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Water</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Electric</span></p>
+                        <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                class="text-gray-700 font-bold">Fire</span></p>
                     </div>
                 </div>
+            </div>
             <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
-                    <div class="flex">
-                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
-                        <h1
-                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-                            001
-                        </h1>
+                <div class="flex">
+                    <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                    <h1
+                        class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                        001
+                    </h1>
+                </div>
+                <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                    <div class="flex gap-10">
+                        <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                        <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                        </h2>
                     </div>
-                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-                        <div class="flex gap-10">
-                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
-                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
-                            </h2>
-                        </div>
-                        <p class="text-gray-500">Seed Pokémon</p>
-                        <div class="grid grid-cols-3">
-                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
-                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
-                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Water</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Electric</span></p>
-                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
-                                    class="text-gray-700 font-bold">Fire</span></p>
-                        </div>
+                    <p class="text-gray-500">Seed Pokémon</p>
+                    <div class="grid grid-cols-3">
+                        <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                        <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                        <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Water</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Electric</span></p>
+                        <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                class="text-gray-700 font-bold">Fire</span></p>
                     </div>
                 </div>
+            </div>
             <div class="border-7 rounded-lg border-(--btn-color) w-61 relative">
-                    <div class="flex">
-                        <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
-                        <h1
-                            class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-                            001
-                        </h1>
+                <div class="flex">
+                    <img class="w-50" src="img/Eevee-removebg-preview.png" alt="">
+                    <h1
+                        class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+                        001
+                    </h1>
+                </div>
+                <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+                    <div class="flex gap-10">
+                        <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
+                        <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
+                        </h2>
                     </div>
-                    <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-                        <div class="flex gap-10">
-                            <h1 class="text-(--btn-color) font-extrabold">Bulbasaur</h1>
-                            <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">Grass
-                            </h2>
-                        </div>
-                        <p class="text-gray-500">Seed Pokémon</p>
-                        <div class="grid grid-cols-3">
-                            <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
-                            <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
-                            <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Water</span></p>
-                            <p class="flex"><img src="img/shield.png" alt="shield"><span
-                                    class="text-gray-700 font-bold">Electric</span></p>
-                            <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
-                                    class="text-gray-700 font-bold">Fire</span></p>
-                        </div>
+                    <p class="text-gray-500">Seed Pokémon</p>
+                    <div class="grid grid-cols-3">
+                        <p class="font-light">HP<span class="text-gray-700 font-bold">1071</span></p>
+                        <p class="font-light">CP<span class="text-gray-700 font-bold">951</span></p>
+                        <p class="font-light">W<span class="text-gray-700 font-bold">0.79</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Water</span></p>
+                        <p class="flex"><img src="img/shield.png" alt="shield"><span
+                                class="text-gray-700 font-bold">Electric</span></p>
+                        <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span
+                                class="text-gray-700 font-bold">Fire</span></p>
                     </div>
                 </div>
+            </div>
         </div>
     </section>
     <footer class="mt-[2%] mb-[2%] max-md:text-center">
@@ -206,4 +234,5 @@
     </footer>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>

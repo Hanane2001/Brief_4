@@ -10,54 +10,64 @@
 </head>
 
 <body>
-    <header class="flex justify-around items-center">
-        <img class="w-20 h-15" src="img/logo.png" alt="logo">
-        <nav class="flex gap-20">
-            <ul class="flex items-center gap-20">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="guid.html">Guid</a></li>
-                <li><a href="market.html">Market</a></li>
-                <li><a href="mydeck.html">MyDeck</a></li>
-                <li><a href="favorite.html">Favorite</a></li>
-            </ul>
-            <button class="bg-(--btn-color) text-white p-2 rounded-sm w-20" type="submit">Cart</button>
-        </nav>
-    </header>
+    <header class="flex justify-between items-center p-4 bg-white relative z-100">
+    <img class="w-20 h-15" src="img/logo.png" alt="logo">
+
+    <!-- Checkbox pour toggle -->
+    <input type="checkbox" id="menu-toggle" class="hidden" />
+    <label for="menu-toggle" class="hidden block max-md:flex max-md:text-2xl">&#9776;</label>
+
+    <!-- Menu -->
+    <nav class="flex gap-6 max-md:absolute max-md:top-full max-md:left-0 max-md:w-full max-md:flex-col max-md:bg-white max-md:shadow-md max-md:overflow-hidden max-md:max-h-0 transition-all duration-300">
+        <ul class="flex gap-6 items-center max-md:flex-col max-md:gap-4 p-0 m-0">
+            <li><a href="index.html" class="block p-2">Home</a></li>
+            <li><a href="guid.html" class="block p-2">Guid</a></li>
+            <li><a href="market.html" class="block p-2">Market</a></li>
+            <li><a href="mydeck.html" class="block p-2">MyDeck</a></li>
+            <li><a href="favorite.html" class="block p-2">Favorite</a></li>
+        </ul>
+        <button class="bg-(--btn-color) hover:bg-(--color-text) text-white p-2 rounded-sm w-20 mt-2 max-md:mb-[5%] max-md:mx-auto block" type="submit" id="card-button">Cart</button>
+    </nav>
+</header>
+
+    <div id="panier-popup"
+        class="hidden fixed top-5 right-5 w-[420px] bg-[var(--color-cards)] rounded-2xl shadow-2xl p-5 z-50 transition-all duration-300 overflow-y-auto max-h-[80vh] max-md:w-[90%] z-200 max-md:z-200">
+        <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
+        <h2 class="text-center font-bold text-xl mb-4">Mon Panier</h2>
+        <div id="popup-content" class="flex flex-col gap-4"></div>
+        <div class="flex justify-between items-center font-bold text-lg mt-6">
+            <span>Total</span>
+            <span id="total-price">0$</span>
+        </div>
+        <div class="flex justify-between mt-4">
+            <button id="clear-panier"
+                class="bg-[var(--color-text)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--btn-color)] transition">Clear</button>
+            <button
+                class="bg-[var(--btn-color)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--color-text)] transition">Order</button>
+        </div>
+    </div>
+    <div id="my-card-container">
+
+    </div>
+
     <main class="flex flex-col justify-around items-center mt-[2%] mb-[2%] gap-10">
-        <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-center">Keep your best Pokémon close —<br> 
-            <span class="text-(--btn-color)">your dream team awaits!</span></h1>
+        <h1 class="font-(family-name:--font-text) text-(--color-text) font-extrabold text-3xl text-center">Keep your
+            best Pokémon close —<br>
+            <span class="text-(--btn-color)">your dream team awaits!</span>
+        </h1>
         <div class="flex justify-around gap-10 max-md:gap-5" id="category">
+            <button type="submit" class="cursor-pointer" value="all">All</button>
             <button type="submit" class="cursor-pointer" value="Mythic">Mythic</button>
             <button type="submit" class="cursor-pointer" value="Legendary">Legendary</button>
             <button type="submit" class="cursor-pointer" value="Epic">Epic</button>
             <button type="submit" class="cursor-pointer" value="Rare">Rare</button>
             <button type="submit" class="cursor-pointer" value="Common">Common</button>
         </div>
-        <div class="grid grid-cols-3 gap-10 max-md:grid-cols-1">
-            
+        <div id="favorite-card-container" class="grid grid-cols-3 gap-10 max-md:grid-cols-1">
+
         </div>
-        <div class="flex gap-15 mb-12 max-md:gap-2">
-            <button
-                class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10"
-                type="submit"><img class="w-10 h-10" src="img/icons8-left-arrow-50.png" alt="left-arrow"></button>
-            <button
-                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
-                type="submit">1</button>
-            <button
-                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
-                type="submit">2</button>
-            <button
-                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
-                type="submit">3</button>
-            <button
-                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
-                type="submit">4</button>
-            <button
-                class="w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10"
-                type="submit">5</button>
-            <button
-                class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10"
-                type="submit"><img class="w-10 h-10" src="img/icons8-right-arrow-50.png" alt="right-arrow"></button>
+        <div id="pagination-fav" class="flex gap-15 mb-12 max-md:gap-2">
+            
         </div>
     </main>
     <footer>
@@ -95,6 +105,8 @@
         </div>
         <p class="text-center text-(--color-text)">All rights reserved@genZdevs.co</p>
     </footer>
+    <!-- <script type="text/javascript" src="js/favorite.js"></script> -->
     <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>
