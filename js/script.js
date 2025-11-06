@@ -1,11 +1,18 @@
 let cardsData = [];
 const cardsPerPage = 9;
 let currentPage = 1;
+let currentPageFav = 1;
+let currentPageDeck = 1;
 
-const cardContainer = document.getElementById("card-container"); 
+const cardContainer = document.getElementById("card-container");
+const favContainer = document.getElementById("favorite-card-container");
+const deckContainer = document.getElementById("card-container-order");
 const cardCategory = document.getElementById('category');
 const paginationContainer = document.getElementById("pagination");
+const paginationFavContainer = document.getElementById("pagination-fav");
+const paginationDeckContainer = document.getElementById("pagination-deck");
 
+// Chargement des données pour la page market
 if (cardContainer) {
   fetch('js/pokemondata1.json')
     .then(response => {
@@ -19,6 +26,7 @@ if (cardContainer) {
     .catch(error => console.error('Error while loading cards :', error));
 }
 
+// Fonction principale pour afficher les cartes
 function renderCard(data, page = 1) {
   if (!cardContainer) return;
 
@@ -67,17 +75,206 @@ function renderCard(data, page = 1) {
   });
 
   attachCardEvents(data);
-  renderPagination(data.length, page);
+  renderPagination(data.length, page, paginationContainer, currentPage, (newPage) => {
+    currentPage = newPage;
+    renderCard(data, newPage);
+  });
 }
 
-function renderPagination(totalCards, page) {
-  if (!paginationContainer) return;
+// Fonction pour afficher les favoris avec pagination
+function renderFavoriteCards(page = 1) {
+  if (!favContainer) return;
+
+  const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+  const start = (page - 1) * cardsPerPage;
+  const end = start + cardsPerPage;
+  const paginatedData = favCards.slice(start, end);
+
+  if (paginatedData.length === 0) {
+    favContainer.innerHTML = `<p class="text-center text-gray-500 text-lg">No card in your favorites</p>`;
+    if (paginationFavContainer) paginationFavContainer.innerHTML = '';
+    return;
+  }
+
+  favContainer.innerHTML = '';
+  paginatedData.forEach((card, index) => {
+    const actualIndex = start + index;
+    favContainer.innerHTML += `
+      <div>
+        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
+          <div class="flex">
+            <img class="w-50 h-50" src="${card.image}" alt="Card-image">
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
+              ${card.number || ''}
+            </h1>
+          </div>
+          <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+            <div class="flex gap-10">
+              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
+                ${card.types ? card.types[0] : ''}
+              </h2>
+            </div>
+            <p class="text-gray-500">${card.classification || ''}</p>
+            <div class="grid grid-cols-3">
+              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
+              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
+              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-center font-bold">
+          <p>Rare: ${card.Rare || ''}</p>
+          <p>${card.Descreption || ''}</p>
+          <p>${card.prix || 0}$</p>
+        </div>
+        <div class="flex justify-between">
+          <button class="remove-favourite bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${actualIndex}">Remove</button>
+          <button class="panier-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" value="${card.id}">Add To Cart</button>
+        </div>
+      </div>
+    `;
+  });
+
+  // Événements pour les favoris
+  document.querySelectorAll('.remove-favourite').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+      const index = parseInt(btn.getAttribute('data-index'));
+      favCards.splice(index, 1);
+      localStorage.setItem("userFavouriteCards", JSON.stringify(favCards));
+      renderFavoriteCards(currentPageFav);
+    });
+  });
+
+  document.querySelectorAll('.panier-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+      const card = favCards.find(c => c.id == btn.value);
+      if (!card) return;
+      if (userCards.some(c => c.id == card.id)) return alert("This card is already in your cart");
+      const cardForCart = { ...card, currentQty: 1, prix: card.prix || 10 };
+      userCards.push(cardForCart);
+      localStorage.setItem("usercards", JSON.stringify(userCards));
+      alert(`"${card.name}" has been added to your cart`);
+      if (typeof renderMyCard === "function") renderMyCard();
+    });
+  });
+
+  // Pagination pour les favoris
+  if (paginationFavContainer) {
+    renderPagination(favCards.length, page, paginationFavContainer, currentPageFav, (newPage) => {
+      currentPageFav = newPage;
+      renderFavoriteCards(newPage);
+    });
+  }
+}
+
+// Fonction pour afficher le deck avec pagination
+function renderDeckCards(page = 1) {
+  if (!deckContainer) return;
+
+  const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+  const start = (page - 1) * cardsPerPage;
+  const end = start + cardsPerPage;
+  const paginatedData = userCards.slice(start, end);
+
+  if (paginatedData.length === 0) {
+    deckContainer.innerHTML = `<p class="text-center text-gray-500 text-xl font-semibold mt-10">You haven't bought any cards yet</p>`;
+    if (paginationDeckContainer) paginationDeckContainer.innerHTML = '';
+    return;
+  }
+
+  deckContainer.innerHTML = '';
+  paginatedData.forEach((card, index) => {
+    const actualIndex = start + index;
+    deckContainer.innerHTML += `
+      <div>
+        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
+          <div class="flex">
+            <img class="w-50 h-50" src="${card.image}" alt="Card-image">
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
+              ${card.number || ''}
+            </h1>
+          </div>
+          <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+            <div class="flex gap-10">
+              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
+                ${card.types ? card.types[0] : ''}
+              </h2>
+            </div>
+            <p class="text-gray-500">${card.classification || ''}</p>
+            <div class="grid grid-cols-3">
+              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
+              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
+              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
+              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between mt-[5%]">
+          <button class="sell-button bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${actualIndex}">Sell</button>
+          <button class="fav-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" data-id="${card.id}">Favorite</button>
+        </div>
+      </div>
+    `;
+  });
+
+  // Événements pour le deck
+  document.querySelectorAll(".sell-button").forEach(button => {
+    button.addEventListener("click", e => {
+      const index = parseInt(e.target.dataset.index);
+      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+      const soldCard = userCards[index];
+      alert(`You sold the card "${soldCard.name}"`);
+      userCards.splice(index, 1);
+      localStorage.setItem("usercards", JSON.stringify(userCards));
+      renderDeckCards(currentPageDeck);
+    });
+  });
+
+  document.querySelectorAll(".fav-button").forEach(button => {
+    button.addEventListener("click", e => {
+      const id = e.target.dataset.id;
+      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+      const card = userCards.find(c => c.id == id);
+      if (!card) return;
+      let favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+      if (!favCards.some(fav => fav.id == card.id)) {
+        favCards.push(card);
+        localStorage.setItem("userFavouriteCards", JSON.stringify(favCards));
+        alert(`"${card.name}" has been added to your favorites`);
+      } else alert(`"${card.name}" is already in your favorites!`);
+    });
+  });
+
+  // Pagination pour le deck
+  if (paginationDeckContainer) {
+    renderPagination(userCards.length, page, paginationDeckContainer, currentPageDeck, (newPage) => {
+      currentPageDeck = newPage;
+      renderDeckCards(newPage);
+    });
+  }
+}
+
+// Fonction générique de pagination
+function renderPagination(totalCards, page, container, currentPage, onPageChange) {
+  if (!container) return;
 
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   let html = '';
 
+  if (totalPages <= 1) {
+    container.innerHTML = '';
+    return;
+  }
+
   html += `
-    <button id="prev-page" class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10">
+    <button id="prev-page" class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10" ${page === 1 ? 'disabled' : ''}>
       <img class="w-10 h-10" src="img/icons8-left-arrow-50.png" alt="left-arrow">
     </button>
   `;
@@ -91,34 +288,38 @@ function renderPagination(totalCards, page) {
   }
 
   html += `
-    <button id="next-page" class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10">
+    <button id="next-page" class="w-40 h-15 p-2 bg-white rounded-sm shadow-lg flex items-center justify-center self-center hover:bg-gray-100 transition cursor-pointer max-md:w-[15%] max-md:h-10" ${page === totalPages ? 'disabled' : ''}>
       <img class="w-10 h-10" src="img/icons8-right-arrow-50.png" alt="right-arrow">
     </button>
   `;
 
-  paginationContainer.innerHTML = html;
+  container.innerHTML = html;
 
   document.querySelectorAll(".page-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const selectedPage = parseInt(btn.getAttribute("data-page"));
-      currentPage = selectedPage;
-      renderCard(cardsData, currentPage);
+      onPageChange(selectedPage);
     });
   });
 
-  document.getElementById("prev-page").addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderCard(cardsData, currentPage);
-    }
-  });
+  const prevButton = document.getElementById("prev-page");
+  const nextButton = document.getElementById("next-page");
 
-  document.getElementById("next-page").addEventListener("click", () => {
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderCard(cardsData, currentPage);
-    }
-  });
+  if (prevButton) {
+    prevButton.addEventListener("click", () => {
+      if (page > 1) {
+        onPageChange(page - 1);
+      }
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => {
+      if (page < totalPages) {
+        onPageChange(page + 1);
+      }
+    });
+  }
 }
 
 function attachCardEvents(data) {
@@ -167,6 +368,20 @@ if (cardCategory) {
   });
 }
 
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialiser les favoris si on est sur la page favoris
+  if (favContainer) {
+    renderFavoriteCards(currentPageFav);
+  }
+
+  // Initialiser le deck si on est sur la page deck
+  if (deckContainer) {
+    renderDeckCards(currentPageDeck);
+  }
+});
+
+// Gestion du panier
 const popup = document.getElementById('panier-popup');
 const panierButton = document.getElementById('card-button');
 
@@ -228,188 +443,63 @@ function renderMyCard() {
         <button id="order-panier" class="bg-[var(--btn-color)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--color-text)] transition">Order</button>
       </div>`;
 
-    document.getElementById('close-popup').addEventListener('click', () => popup.classList.add('hidden'));
+    // Événement pour fermer le popup
+    document.getElementById('close-popup').addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+
+    // Événement pour vider le panier
     document.getElementById('clear-panier').addEventListener('click', () => {
       localStorage.removeItem('usercards');
-      refreshPopup();
+      renderMyCard(); // Réinitialiser l'affichage
+      // Re-render deck si on est sur la page deck
+      if (deckContainer) renderDeckCards(currentPageDeck);
     });
 
+    // Événement pour commander
+    document.getElementById('order-panier').addEventListener('click', () => {
+      alert('Order placed successfully!');
+      localStorage.removeItem('usercards');
+      renderMyCard(); // Réinitialiser l'affichage
+      if (deckContainer) renderDeckCards(currentPageDeck);
+    });
+
+    // Événements pour supprimer une carte
     document.querySelectorAll('.remove-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = btn.getAttribute('data-index');
+      btn.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'));
         myCards.splice(index, 1);
         localStorage.setItem('usercards', JSON.stringify(myCards));
-        refreshPopup();
+        renderMyCard(); // Regénérer l'affichage
+        // Re-render deck si on est sur la page deck
+        if (deckContainer) renderDeckCards(currentPageDeck);
       });
     });
 
+    // Événements pour augmenter la quantité
     document.querySelectorAll('.qty-plus').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = btn.getAttribute('data-index');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Empêcher la propagation
+        const index = parseInt(e.target.getAttribute('data-index'));
         myCards[index].currentQty++;
         localStorage.setItem('usercards', JSON.stringify(myCards));
-        refreshPopup();
+        renderMyCard(); // Regénérer l'affichage
       });
     });
 
+    // Événements pour diminuer la quantité
     document.querySelectorAll('.qty-minus').forEach(btn => {
-      const index = btn.getAttribute('data-index');
-      if (myCards[index].currentQty > 1) myCards[index].currentQty--;
-      localStorage.setItem('usercards', JSON.stringify(myCards));
-      refreshPopup();
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Empêcher la propagation
+        const index = parseInt(e.target.getAttribute('data-index'));
+        if (myCards[index].currentQty > 1) {
+          myCards[index].currentQty--;
+          localStorage.setItem('usercards', JSON.stringify(myCards));
+          renderMyCard(); // Regénérer l'affichage
+        }
+      });
     });
   }
 
   refreshPopup();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const favContainer = document.getElementById('favorite-card-container');
-  if (!favContainer) return;
-
-  function renderFavoriteCards() {
-    const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-    if (favCards.length === 0) {
-      favContainer.innerHTML = `<p class="text-center text-gray-500 text-lg">No card in your favorites</p>`;
-      return;
-    }
-
-    favContainer.innerHTML = '';
-    favCards.forEach((card, index) => {
-      favContainer.innerHTML += `
-        <div>
-          <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
-            <div class="flex">
-              <img class="w-50 h-50" src="${card.image}" alt="Card-image">
-              <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
-                ${card.number || ''}
-              </h1>
-            </div>
-            <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-              <div class="flex gap-10">
-                <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
-                <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
-                  ${card.types ? card.types[0] : ''}
-                </h2>
-              </div>
-              <p class="text-gray-500">${card.classification || ''}</p>
-              <div class="grid grid-cols-3">
-                <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-                <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-                <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="text-center font-bold">
-            <p>Rare: ${card.Rare || ''}</p>
-            <p>${card.Descreption || ''}</p>
-            <p>${card.prix || 0}$</p>
-          </div>
-          <div class="flex justify-between">
-            <button class="remove-favourite bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${index}">Remove</button>
-            <button class="panier-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" value="${card.id}">Add To Cart</button>
-          </div>
-        </div>
-      `;
-    });
-
-    document.querySelectorAll('.remove-favourite').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-        const index = btn.getAttribute('data-index');
-        favCards.splice(index, 1);
-        localStorage.setItem("userFavouriteCards", JSON.stringify(favCards));
-        renderFavoriteCards();
-      });
-    });
-
-    document.querySelectorAll('.panier-button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-        const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-        const card = favCards.find(c => c.id == btn.value);
-        if (!card) return;
-        if (userCards.some(c => c.id == card.id)) return alert("This card is already in your cart");
-        const cardForCart = { ...card, currentQty: 1, prix: card.prix || 10 };
-        userCards.push(cardForCart);
-        localStorage.setItem("usercards", JSON.stringify(userCards));
-        alert(`"${card.name}" has been added to your cart`);
-        if (typeof renderMyCard === "function") renderMyCard();
-      });
-    });
-  }
-
-  renderFavoriteCards();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const deckContainer = document.getElementById("card-container-order");
-  if (!deckContainer) return;
-
-  const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-  if (userCards.length === 0) {
-    deckContainer.innerHTML = `<p class="text-center text-gray-500 text-xl font-semibold mt-10">You haven’t bought any cards yet</p>`;
-    return;
-  }
-
-  userCards.forEach((card, index) => {
-    deckContainer.innerHTML += `
-      <div>
-        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
-          <div class="flex">
-            <img class="w-50 h-50" src="${card.image}" alt="Card-image">
-            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
-              ${card.number || ''}
-            </h1>
-          </div>
-          <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-            <div class="flex gap-10">
-              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
-              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
-                ${card.types ? card.types[0] : ''}
-              </h2>
-            </div>
-            <p class="text-gray-500">${card.classification || ''}</p>
-            <div class="grid grid-cols-3">
-              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
-              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-between mt-[5%]">
-          <button class="sell-button bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${index}">Sell</button>
-          <button class="fav-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" data-id="${card.id}">Favorite</button>
-        </div>
-      </div>
-    `;
-  });
-
-  document.querySelectorAll(".sell-button").forEach(button => {
-    button.addEventListener("click", e => {
-      const index = e.target.dataset.index;
-      const soldCard = userCards[index];
-      alert(`You sold the card "${soldCard.name}"`);
-      userCards.splice(index, 1);
-      localStorage.setItem("usercards", JSON.stringify(userCards));
-      e.target.closest("div").remove();
-    });
-  });
-
-  document.querySelectorAll(".fav-button").forEach(button => {
-    button.addEventListener("click", e => {
-      const id = e.target.dataset.id;
-      const card = userCards.find(c => c.id == id);
-      if (!card) return;
-      let favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-      if (!favCards.some(fav => fav.id == card.id)) {
-        favCards.push(card);
-        localStorage.setItem("userFavouriteCards", JSON.stringify(favCards));
-        alert(`"${card.name}" has been added to your favorites`);
-      } else alert(`"${card.name}" is already in your favorites!`);
-    });
-  });
-});
