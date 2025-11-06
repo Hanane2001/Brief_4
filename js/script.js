@@ -43,15 +43,15 @@ function renderCard(data, page = 1) {
   paginatedData.forEach(card => {
     cardContainer.innerHTML += `
       <div>
-        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
+        <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id${card.id}">
           <div class="flex">
             <img class="w-50 h-50" src="${card.image}" alt="${card.name}">
-            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">${card.number}</h1>
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">${card.number}</h1>
           </div>
           <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
             <div class="flex gap-10">
-              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
-              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
+              <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
                 ${card.types ? card.types[0] : ''}
               </h2>
             </div>
@@ -72,8 +72,8 @@ function renderCard(data, page = 1) {
           <p>${card.prix}$</p>
         </div>
         <div class="flex justify-between">
-          <button class="favourite-button bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" value="${card.id}">Favoris</button>
-          <button class="panier-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" value="${card.id}">Add To Cart</button>
+          <button class="favourite-button bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)" value="${card.id}">Favoris</button>
+          <button class="panier-button bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)" value="${card.id}">Add To Cart</button>
         </div>
       </div>
     `;
@@ -108,17 +108,17 @@ function renderFavoriteCards(page = 1) {
     const actualIndex = start + index;
     favContainer.innerHTML += `
       <div>
-        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
+        <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id${card.id}">
           <div class="flex">
             <img class="w-50 h-50" src="${card.image}" alt="Card-image">
-            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
               ${card.number || ''}
             </h1>
           </div>
           <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
             <div class="flex gap-10">
-              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
-              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
+              <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
                 ${card.types ? card.types[0] : ''}
               </h2>
             </div>
@@ -136,8 +136,8 @@ function renderFavoriteCards(page = 1) {
           <p>${card.prix || 0}$</p>
         </div>
         <div class="flex justify-between">
-          <button class="remove-favourite bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${actualIndex}">Remove</button>
-          <button class="panier-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" value="${card.id}">Add To Cart</button>
+          <button class="remove-favourite bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)" data-index="${actualIndex}">Remove</button>
+          <button class="panier-button bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)" value="${card.id}">Add To Cart</button>
         </div>
       </div>
     `;
@@ -199,17 +199,17 @@ function renderDeckCards(page = 1) {
     const actualIndex = start + index;
     deckContainer.innerHTML += `
       <div>
-        <div class="border-7 rounded-lg border-[var(--btn-color)] w-61 relative" id="id${card.id}">
+        <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id${card.id}">
           <div class="flex">
             <img class="w-50 h-50" src="${card.image}" alt="Card-image">
-            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-[var(--bg-color)] font-bold text-center">
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
               ${card.number || ''}
             </h1>
           </div>
           <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
             <div class="flex gap-10">
-              <h1 class="text-[var(--btn-color)] font-extrabold">${card.name}</h1>
-              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-[var(--bg-color)] font-bold text-center">
+              <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
                 ${card.types ? card.types[0] : ''}
               </h2>
             </div>
@@ -225,8 +225,8 @@ function renderDeckCards(page = 1) {
           </div>
         </div>
         <div class="flex justify-between mt-[5%]">
-          <button class="sell-button bg-[var(--btn-color)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--color-text)]" data-index="${actualIndex}">Sell</button>
-          <button class="fav-button bg-[var(--color-text)] text-[var(--bg-color)] rounded-sm p-2 hover:bg-[var(--btn-color)]" data-id="${card.id}">Favorite</button>
+          <button class="sell-button bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)" data-index="${actualIndex}">Sell</button>
+          <button class="fav-button bg-(--color-text) text-(--bg-color) rounded-sm p-2 hover:bg-(--btn-color)" data-id="${card.id}">Favorite</button>
         </div>
       </div>
     `;
@@ -315,7 +315,7 @@ function renderPagination(totalCards, page, container, currentPage, onPageChange
 
   for (let i = 1; i <= totalPages; i++) {
     html += `
-      <button class="page-btn w-[15%] h-15 p-2 bg-[var(--btn-color)] text-[var(--bg-color)] rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-[var(--btn-color)] cursor-pointer max-md:w-[10%] max-md:h-10 ${i === page ? 'border-2 border-[var(--color-text)]' : ''}" data-page="${i}">
+      <button class="page-btn w-[15%] h-15 p-2 bg-(--btn-color) text-(--bg-color) rounded-full shadow-lg flex items-center justify-center self-center hover:bg-gray-100 hover:text-(--btn-color) cursor-pointer max-md:w-[10%] max-md:h-10 ${i === page ? 'border-2 border-(--color-text)' : ''}" data-page="${i}">
         ${i}
       </button>
     `;
@@ -456,26 +456,26 @@ function renderMyCard() {
 
     myCards.forEach((card, index) => {
       cardsHTML += `
-        <div class="flex items-center bg-[var(--bg-color)] rounded-xl p-3 gap-3 max-md:w-70 max-md:mx-auto max-md:justify-center">
+        <div class="flex items-center bg-(--bg-color) rounded-xl p-3 gap-3 max-md:w-70 max-md:mx-auto max-md:justify-center">
           <img src="${card.image}" alt="${card.name}" class="w-20 h-24 object-cover rounded-lg max-md:w-15 max-md:h-15">
           <div class="flex flex-col flex-1 max-md:w-[70%]">
             <h3 class="font-semibold">${card.name}</h3>
             <div class="flex items-center gap-2 mt-1">
               <p class="font-bold">Quantity:</p>
-              <button data-index="${index}" class="qty-plus rounded-full bg-[var(--btn-color)] text-[var(--bg-color)] w-7 h-7 flex items-center justify-center hover:bg-[var(--color-text)] transition">+</button>
+              <button data-index="${index}" class="qty-plus rounded-full bg-(--btn-color) text-(--bg-color) w-7 h-7 flex items-center justify-center hover:bg-(--color-text) transition">+</button>
               <span class="font-semibold quantity-value">${card.currentQty}</span>
-              <button data-index="${index}" class="qty-minus rounded-full bg-[var(--btn-color)] text-[var(--bg-color)] w-7 h-7 flex items-center justify-center hover:bg-[var(--color-text)] transition">-</button>
+              <button data-index="${index}" class="qty-minus rounded-full bg-(--btn-color) text-(--bg-color) w-7 h-7 flex items-center justify-center hover:bg-(--color-text) transition">-</button>
             </div>
-            <p class="font-semibold mt-2">Price: <span class="text-[var(--btn-color)]">${card.prix}$</span></p>
+            <p class="font-semibold mt-2">Price: <span class="text-(--btn-color)">${card.prix}$</span></p>
             <div class="flex justify-end mt-2">
-              <button data-index="${index}" class="remove-card bg-[var(--btn-color)] text-[var(--bg-color)] px-4 py-1 rounded-lg hover:bg-[var(--color-text)] transition">Remove</button>
+              <button data-index="${index}" class="remove-card bg-(--btn-color) text-(--bg-color) px-4 py-1 rounded-lg hover:bg-(--color-text) transition">Remove</button>
             </div>
           </div>
         </div>`;
     });
 
     popup.innerHTML = `
-      <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-[var(--btn-color)]">×</button>
+      <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
       <h2 class="text-center font-bold text-xl mb-4">Mon Panier</h2>
       <div class="flex flex-col gap-4">${cardsHTML}</div>
       <div class="flex justify-between items-center font-bold text-lg mt-6 max-md:w-full max-md:justify-around">
@@ -483,8 +483,8 @@ function renderMyCard() {
         <span>${total}$</span>
       </div>
       <div class="flex justify-between mt-4 max-md:w-full max-md:justify-around">
-        <button id="clear-panier" class="bg-[var(--color-text)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--btn-color)] transition">Clear</button>
-        <button id="order-panier" class="bg-[var(--btn-color)] text-[var(--bg-color)] px-5 py-2 rounded-lg hover:bg-[var(--color-text)] transition">Order</button>
+        <button id="clear-panier" class="bg-(--color-text) text-(--bg-color) px-5 py-2 rounded-lg hover:bg-(--btn-color) transition">Clear</button>
+        <button id="order-panier" class="bg-(--btn-color) text-(--bg-color) px-5 py-2 rounded-lg hover:bg-(--color-text) transition">Order</button>
       </div>`;
 
     document.getElementById('close-popup').addEventListener('click', () => {
