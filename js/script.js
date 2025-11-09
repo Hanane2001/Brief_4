@@ -157,13 +157,13 @@ function renderFavoriteCards(page = 1) {
   document.querySelectorAll('.panier-button').forEach(btn => {
     btn.addEventListener('click', () => {
       const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+      const userCart = JSON.parse(localStorage.getItem("usercart")) || [];
       const card = favCards.find(c => c.id == btn.value);
       if (!card) return;
-      if (userCards.some(c => c.id == card.id)) return alert("This card is already in your cart");
+      if (userCart.some(c => c.id == card.id)) return alert("This card is already in your cart");
       const cardForCart = { ...card, currentQty: 1, prix: card.prix || 10 };
-      userCards.push(cardForCart);
-      localStorage.setItem("usercards", JSON.stringify(userCards));
+      userCart.push(cardForCart);
+      localStorage.setItem("usercart", JSON.stringify(userCart));
       alert(`"${card.name}" has been added to your cart`);
       if (typeof renderMyCard === "function") renderMyCard();
     });
@@ -179,10 +179,8 @@ function renderFavoriteCards(page = 1) {
 
 function renderDeckCards(page = 1) {
   if (!deckContainer) return;
-
-  const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-
-  const dataToRender = filteredDeckData.length > 0 ? filteredDeckData : userCards;
+  const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
+  const dataToRender = filteredDeckData.length > 0 ? filteredDeckData : userDeck;
   
   const start = (page - 1) * cardsPerPage;
   const end = start + cardsPerPage;
@@ -235,11 +233,11 @@ function renderDeckCards(page = 1) {
   document.querySelectorAll(".sell-button").forEach(button => {
     button.addEventListener("click", e => {
       const index = parseInt(e.target.dataset.index);
-      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-      const soldCard = userCards[index];
+      const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
+      const soldCard = userDeck[index];
       alert(`You sold the card "${soldCard.name}"`);
-      userCards.splice(index, 1);
-      localStorage.setItem("usercards", JSON.stringify(userCards));
+      userDeck.splice(index, 1);
+      localStorage.setItem("userdeck", JSON.stringify(userDeck));
       filteredDeckData = [];
       renderDeckCards(currentPageDeck);
     });
@@ -248,8 +246,8 @@ function renderDeckCards(page = 1) {
   document.querySelectorAll(".fav-button").forEach(button => {
     button.addEventListener("click", e => {
       const id = e.target.dataset.id;
-      const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-      const card = userCards.find(c => c.id == id);
+      const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
+      const card = userDeck.find(c => c.id == id);
       if (!card) return;
       let favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
       if (!favCards.some(fav => fav.id == card.id)) {
@@ -290,8 +288,8 @@ function handleFavFilter(type) {
 }
 
 function handleDeckFilter(type) {
-  const userCards = JSON.parse(localStorage.getItem("usercards")) || [];
-  filteredDeckData = filterData(userCards, type);
+  const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
+  filteredDeckData = filterData(userDeck, type);
   currentPageDeck = 1;
   renderDeckCards(currentPageDeck);
 }
@@ -362,15 +360,15 @@ function attachCardEvents(data) {
 
   payButtons.forEach(button => {
     button.addEventListener('click', () => {
-      let userCards = JSON.parse(localStorage.getItem("usercards")) || [];
+      let userCart = JSON.parse(localStorage.getItem("usercart")) || [];
       let card = data.find(c => c.id == button.value);
       if (!card) return;
 
       if (card.quantity <= 0) return alert("This card is out of stock!");
-      if (userCards.some(c => c.id == card.id)) return alert("You can't add the same card twice!");
+      if (userCart.some(c => c.id == card.id)) return alert("You can't add the same card twice!");
 
-      userCards.push(card);
-      localStorage.setItem("usercards", JSON.stringify(userCards));
+      userCart.push(card);
+      localStorage.setItem("usercart", JSON.stringify(userCart));
       alert("Card added to your panier!");
       if (typeof renderMyCard === "function") renderMyCard();
     });
@@ -438,9 +436,19 @@ if (popup && panierButton) {
 
 function renderMyCard() {
   if (!popup) return;
-  let myCards = JSON.parse(localStorage.getItem('usercards')) || [];
+  let myCards = JSON.parse(localStorage.getItem('usercart')) || [];
+  
   if (myCards.length === 0) {
-    popup.innerHTML = `<h2 class="text-center font-bold text-xl mb-4">My Cart</h2><p class="text-center text-gray-500">Your Cart is Empty</p>`;
+    popup.innerHTML = `
+      <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
+      <h2 class="text-center font-bold text-xl mb-4">My Cart</h2>
+      <p class="text-center text-gray-500">Your Cart is Empty</p>
+    `;
+    
+    document.getElementById('close-popup').addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+    
     return;
   }
 
@@ -492,14 +500,25 @@ function renderMyCard() {
     });
 
     document.getElementById('clear-panier').addEventListener('click', () => {
-      localStorage.removeItem('usercards');
+      localStorage.removeItem('usercart');
       renderMyCard();
       if (deckContainer) renderDeckCards(currentPageDeck);
     });
 
     document.getElementById('order-panier').addEventListener('click', () => {
-      alert('Order placed successfully!');
-      localStorage.removeItem('usercards');
+      const userCart = JSON.parse(localStorage.getItem("usercart")) || [];
+      const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
+      
+      userCart.forEach(card => {
+        if (!userDeck.some(deckCard => deckCard.id === card.id)) {
+          userDeck.push(card);
+        }
+      });
+      
+      localStorage.setItem("userdeck", JSON.stringify(userDeck));
+      localStorage.removeItem('usercart');
+      
+      alert('Order placed successfully! Your cards have been added to your deck.');
       renderMyCard();
       if (deckContainer) renderDeckCards(currentPageDeck);
     });
@@ -508,7 +527,7 @@ function renderMyCard() {
       btn.addEventListener('click', (e) => {
         const index = parseInt(e.target.getAttribute('data-index'));
         myCards.splice(index, 1);
-        localStorage.setItem('usercards', JSON.stringify(myCards));
+        localStorage.setItem('usercart', JSON.stringify(myCards));
         renderMyCard();
         if (deckContainer) renderDeckCards(currentPageDeck);
       });
@@ -519,7 +538,7 @@ function renderMyCard() {
         e.stopPropagation();
         const index = parseInt(e.target.getAttribute('data-index'));
         myCards[index].currentQty++;
-        localStorage.setItem('usercards', JSON.stringify(myCards));
+        localStorage.setItem('usercart', JSON.stringify(myCards));
         renderMyCard(); 
       });
     });
@@ -530,7 +549,7 @@ function renderMyCard() {
         const index = parseInt(e.target.getAttribute('data-index'));
         if (myCards[index].currentQty > 1) {
           myCards[index].currentQty--;
-          localStorage.setItem('usercards', JSON.stringify(myCards));
+          localStorage.setItem('usercart', JSON.stringify(myCards));
           renderMyCard();
         }
       });
