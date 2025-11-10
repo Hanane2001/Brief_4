@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+<header class="flex justify-between items-center p-4 bg-white relative z-100">
+    <img class="w-20 h-15" src="img/logo.png" alt="logo">
+
+    <input type="checkbox" id="menu-toggle" class="hidden" />
+    <label for="menu-toggle" class="hidden block max-md:flex max-md:text-2xl">&#9776;</label>
+
+    <nav class="flex gap-6 max-md:absolute max-md:top-full max-md:left-0 max-md:w-full max-md:flex-col max-md:bg-white max-md:shadow-md max-md:overflow-hidden max-md:max-h-0 transition-all duration-300">
+        <ul class="flex gap-6 items-center max-md:flex-col max-md:gap-4 p-0 m-0">
+            <li><a href="index.html" class="block p-2">Home</a></li>
+            <li><a href="guid.html" class="block p-2">Guid</a></li>
+            <li><a href="Market.html" class="block p-2">Market</a></li>
+            <li><a href="Play.html" class="block p-2">Play</a></li>
+            <li><a href="MyDeck.html" class="block p-2">MyDeck</a></li>
+            <li><a href="Favorite.html" class="block p-2">Favorite</a></li>
+        </ul>
+        <button class="bg-(--btn-color) hover:bg-(--color-text) text-white p-2 rounded-sm w-20 mt-2 max-md:mb-[5%] max-md:mx-auto block" type="submit" id="card-button">Cart</button>
+    </nav>
+</header>
+
+    <div id="panier-popup"
+        class="hidden fixed top-5 right-5 w-[420px] bg-(--color-cards) rounded-2xl shadow-2xl p-5 z-50 transition-all duration-300 overflow-y-auto max-h-[80vh] max-md:w-[90%] z-200 max-md:z-200">
+        <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
+        <h2 class="text-center font-bold text-xl mb-4">Mon Panier</h2>
+        <div id="popup-content" class="flex flex-col gap-4"></div>
+        <div class="flex justify-between items-center font-bold text-lg mt-6">
+            <span>Total</span>
+            <span id="total-price">0$</span>
+        </div>
+        <div class="flex justify-between mt-4">
+            <button id="clear-panier"
+                class="bg-(--color-text) text-(--bg-color) px-5 py-2 rounded-lg hover:bg-(--btn-color) transition">Clear</button>
+            <button
+                class="bg-(--btn-color) text-(--bg-color) px-5 py-2 rounded-lg hover:bg-(--color-text) transition">Order</button>
+        </div>
+    </div>
+    <div id="my-card-container">
+
+    </div>
+    <main class="grid [grid-template-areas:'leftbar_header_header'_'leftbar_main_rightbar'_'leftbar_footer_rightbar'] grid-cols-3 grid-rows-3 items-center justify-center px-8 mt-[2%] mb-[2%] max-md:flex-col max-md:gap-6 h-150">
+        <div class="[grid-area:leftbar] bg-yellow-100 h-[100%] p-[2%] flex flex-col gap-5"> 
+            <button type="submit" class="ml-[5%] text-center text-(--bg-color) cursor-pointer w-[90%] bg-(--btn-color) rounded-sm p-[1%]">Draw Card</button>
+            <p class="font-bold">Deck (<span id="nbr-Cards"></span>)</p>
+            <div id="zone_deck" class="flex flex-col overflow-y-auto items-center gap-5">
+                
+            </div>
+        </div>
+        <div class="[grid-area:header] bg-yellow-300 h-[100%] p-[2%] flex flex-col gap-5"> 
+            <div class="text-(--color-cards) ml-[5%] font-extrabold text-center w-[90%] bg-(--bg-color) rounded-sm">Score</div>
+            <div class="text-(--bg-color) font-bold text-center">opponent hand</div>
+        </div>
+        <div id="Cards-arena" class="[grid-area:main] bg-yellow-500 h-[100%] grid grid-cols-5 grid-rows-2 m-[2%] p-[2%]"> 
+            <div class="card-arena border-2 border-dotted border-gray-500">1</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">2</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">3</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">4</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">5</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">6</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">7</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">8</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">9</div>
+            <div class="card-arena border-2 border-dotted border-gray-500">10</div>
+        </div>
+        <div class="[grid-area:rightbar] bg-yellow-600 h-[100%] flex flex-col gap-5 p-[2%]"> 
+            <p class="font-bold text-center w-[90%] bg-(--bg-color) rounded-sm">Score</p>
+            <p class="font-bold">Your Turn</p>
+            <p class="font-bold">Summen:<span id="role-user">Used</span></p>
+            <button type="submit" class="ml-[5%] text-center text-(--bg-color) justify-self-center cursor-pointer w-[90%] bg-(--btn-color) rounded-sm p-[1%]">End Turn</button>
+        </div>
+        <div class="[grid-area:footer] bg-yellow-900 h-[100%] p-[2%]"> 
+            <p class="font-bold">Hand (<span id="nbr-Cads-hand">4</span>/5)</p>
+        </div>
+    </main>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+
+</html>

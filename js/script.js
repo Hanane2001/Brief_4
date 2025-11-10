@@ -8,7 +8,7 @@ const cardContainer = document.getElementById("card-container");
 const favContainer = document.getElementById("favorite-card-container");
 const deckContainer = document.getElementById("card-container-order");
 const cardCategory = document.getElementById('category');
-const cardCategoryFav = document.getElementById('category-fav'); 
+const cardCategoryFav = document.getElementById('category-fav');
 const cardCategoryDeck = document.getElementById('category-deck');
 const paginationContainer = document.getElementById("pagination");
 const paginationFavContainer = document.getElementById("pagination-fav");
@@ -90,9 +90,9 @@ function renderFavoriteCards(page = 1) {
   if (!favContainer) return;
 
   const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
-  
+
   const dataToRender = filteredFavData.length > 0 ? filteredFavData : favCards;
-  
+
   const start = (page - 1) * cardsPerPage;
   const end = start + cardsPerPage;
   const paginatedData = dataToRender.slice(start, end);
@@ -181,7 +181,7 @@ function renderDeckCards(page = 1) {
   if (!deckContainer) return;
   const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
   const dataToRender = filteredDeckData.length > 0 ? filteredDeckData : userDeck;
-  
+
   const start = (page - 1) * cardsPerPage;
   const end = start + cardsPerPage;
   const paginatedData = dataToRender.slice(start, end);
@@ -437,18 +437,18 @@ if (popup && panierButton) {
 function renderMyCard() {
   if (!popup) return;
   let myCards = JSON.parse(localStorage.getItem('usercart')) || [];
-  
+
   if (myCards.length === 0) {
     popup.innerHTML = `
       <button id="close-popup" class="absolute top-3 right-3 text-xl font-bold hover:text-(--btn-color)">×</button>
       <h2 class="text-center font-bold text-xl mb-4">My Cart</h2>
       <p class="text-center text-gray-500">Your Cart is Empty</p>
     `;
-    
+
     document.getElementById('close-popup').addEventListener('click', () => {
       popup.classList.add('hidden');
     });
-    
+
     return;
   }
 
@@ -508,16 +508,16 @@ function renderMyCard() {
     document.getElementById('order-panier').addEventListener('click', () => {
       const userCart = JSON.parse(localStorage.getItem("usercart")) || [];
       const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
-      
+
       userCart.forEach(card => {
         if (!userDeck.some(deckCard => deckCard.id === card.id)) {
           userDeck.push(card);
         }
       });
-      
+
       localStorage.setItem("userdeck", JSON.stringify(userDeck));
       localStorage.removeItem('usercart');
-      
+
       alert('Order placed successfully! Your cards have been added to your deck.');
       renderMyCard();
       if (deckContainer) renderDeckCards(currentPageDeck);
@@ -539,7 +539,7 @@ function renderMyCard() {
         const index = parseInt(e.target.getAttribute('data-index'));
         myCards[index].currentQty++;
         localStorage.setItem('usercart', JSON.stringify(myCards));
-        renderMyCard(); 
+        renderMyCard();
       });
     });
 
@@ -558,3 +558,46 @@ function renderMyCard() {
 
   refreshPopup();
 }
+
+
+const myPlayCards = JSON.parse(localStorage.getItem("userdeck")) || [];
+const ZoneDeck = document.getElementById("zone_deck");
+
+function renderPCards() {
+  myPlayCards.forEach(card => {
+    const cardHTML = document.createElement('div');
+    cardHTML.setAttribute("draggable", "true");
+    cardHTML.innerHTML = `
+        <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id${card.id}">
+          <div class="flex">
+            <img class="w-90 h-50" src="${card.image}" alt="Card-image">
+            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
+              ${card.number}
+            </h1>
+          </div>
+          <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
+            <div class="flex gap-10">
+              <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
+              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
+                ${card.types ? card.types[0] : ''}
+              </h2>
+            </div>
+            <p class="text-gray-500">${card.classification || ''}</p>
+            <div class="grid grid-cols-3">
+              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
+              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
+              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
+              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
+            </div>
+          </div>
+        </div>`;
+        ZoneDeck.appendChild(cardHTML);
+  })
+
+  const nbrCards = document.getElementById("nbr-Cards");
+  let deckcount = ZoneDeck.children.length;
+  nbrCards.innerHTML = deckcount;
+}
+renderPCards();
