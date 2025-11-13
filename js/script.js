@@ -18,6 +18,7 @@ let filteredCardsData = [];
 let filteredFavData = [];
 let filteredDeckData = [];
 
+//*********************************fetcher le data*********************************
 if (cardContainer) {
   fetch('js/pokemondata1.json')
     .then(response => {
@@ -52,23 +53,23 @@ function renderCard(data, page = 1) {
             <div class="flex gap-10">
               <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
               <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
-                ${card.types ? card.types[0] : ''}
+                ${card.types ? card.types[0] : card.types[1]}
               </h2>
             </div>
-            <p class="text-gray-500">${card.classification || ''}</p>
+            <p class="text-gray-500">${card.classification}</p>
             <div class="grid grid-cols-3">
-              <p class="font-light">HP <span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-              <p class="font-light">CP <span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-              <p class="font-light">W <span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
-              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
+              <p class="font-light">HP <span class="text-gray-700 font-bold">${card.maxHP}</span></p>
+              <p class="font-light">CP <span class="text-gray-700 font-bold">${card.maxCP}</span></p>
+              <p class="font-light">W <span class="text-gray-700 font-bold">${card.fleeRate}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : card.resistant[2]}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : card.resistant[3]}</span></p>
+              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : card.weaknesses[1]}</span></p>
             </div>
           </div>
         </div>
         <div class="text-center font-bold">
-          <p>Rare: ${card.Rare || ''}</p>
-          <p>${card.Descreption || ''}</p>
+          <p>Rare: ${card.Rare}</p>
+          <p>${card.Descreption}</p>
           <p>${card.prix}$</p>
         </div>
         <div class="flex justify-between">
@@ -112,28 +113,28 @@ function renderFavoriteCards(page = 1) {
           <div class="flex">
             <img class="w-50 h-50" src="${card.image}" alt="Card-image">
             <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-              ${card.number || ''}
+              ${card.number}
             </h1>
           </div>
           <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
             <div class="flex gap-10">
               <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
               <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
-                ${card.types ? card.types[0] : ''}
+                ${card.types ? card.types[0] : card.types[1]}
               </h2>
             </div>
-            <p class="text-gray-500">${card.classification || ''}</p>
+            <p class="text-gray-500">${card.classification}</p>
             <div class="grid grid-cols-3">
-              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
+              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP}</span></p>
+              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP}</span></p>
+              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate}</span></p>
             </div>
           </div>
         </div>
         <div class="text-center font-bold">
-          <p>Rare: ${card.Rare || ''}</p>
-          <p>${card.Descreption || ''}</p>
-          <p>${card.prix || 0}$</p>
+          <p>Rare: ${card.Rare}</p>
+          <p>${card.Descreption}</p>
+          <p>${card.prix}$</p>
         </div>
         <div class="flex justify-between">
           <button class="remove-favourite bg-(--btn-color) text-(--bg-color) rounded-sm p-2 hover:bg-(--color-text)" data-index="${actualIndex}">Remove</button>
@@ -201,24 +202,24 @@ function renderDeckCards(page = 1) {
           <div class="flex">
             <img class="w-50 h-50" src="${card.image}" alt="Card-image">
             <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-              ${card.number || ''}
+              ${card.number}
             </h1>
           </div>
           <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
             <div class="flex gap-10">
               <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
               <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
-                ${card.types ? card.types[0] : ''}
+                ${card.types ? card.types[0] : card.types[1]}
               </h2>
             </div>
-            <p class="text-gray-500">${card.classification || ''}</p>
+            <p class="text-gray-500">${card.classification}</p>
             <div class="grid grid-cols-3">
-              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
-              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
+              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP}</span></p>
+              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP}</span></p>
+              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : card.resistant[2]}</span></p>
+              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : card.resistant[3]}</span></p>
+              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : card.weaknesses[1]}</span></p>
             </div>
           </div>
         </div>
@@ -555,49 +556,547 @@ function renderMyCard() {
       });
     });
   }
-
   refreshPopup();
 }
 
+let currentPlayerTurn = true;
+let turnPhase = 'draw';
+let cardsDrawnThisTurn = 0;
+let maxDrawsPerTurn = 1;
+let playerHP = 100;
+let opponentHP = 100;
+let draggedItem = null;
+let selectedCardForAction = null;
 
-const myPlayCards = JSON.parse(localStorage.getItem("userdeck")) || [];
+const allCards = JSON.parse(localStorage.getItem("userdeck")) || [];
+const marketCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
+let opponentDeck = [...marketCards];
+let myPlayCards = [...allCards];
 const ZoneDeck = document.getElementById("zone_deck");
+const cardsArenaContainer = document.getElementById("Cards-arena");
+const playerHandContainer = document.getElementById("player-hand-cards");
+const opponentHandContainer = document.getElementById("opponent-hand");
+
+let opponentHand = [];
+let opponentPlayCards = [...opponentDeck];
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderPCards();
+    initializeGame();
+});
 
 function renderPCards() {
-  myPlayCards.forEach(card => {
-    const cardHTML = document.createElement('div');
-    cardHTML.setAttribute("draggable", "true");
-    cardHTML.innerHTML = `
-        <div class="border-7 rounded-lg border-(--btn-color) w-61 relative" id="id${card.id}">
-          <div class="flex">
-            <img class="w-90 h-50" src="${card.image}" alt="Card-image">
-            <h1 class="absolute top-0 right-0 w-8 h-8 bg-[#374151] rounded-full text-(--bg-color) font-bold text-center">
-              ${card.number}
-            </h1>
-          </div>
-          <div class="flex flex-col bg-gray-100 pl-[15px] pt-[15px] pb-[15px]">
-            <div class="flex gap-10">
-              <h1 class="text-(--btn-color) font-extrabold">${card.name}</h1>
-              <h2 class="bg-[#374151] w-20 h-7 rounded-full text-(--bg-color) font-bold text-center">
-                ${card.types ? card.types[0] : ''}
-              </h2>
-            </div>
-            <p class="text-gray-500">${card.classification || ''}</p>
-            <div class="grid grid-cols-3">
-              <p class="font-light">HP<span class="text-gray-700 font-bold">${card.maxHP || ''}</span></p>
-              <p class="font-light">CP<span class="text-gray-700 font-bold">${card.maxCP || ''}</span></p>
-              <p class="font-light">W<span class="text-gray-700 font-bold">${card.fleeRate || ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[0] : ''}</span></p>
-              <p class="flex"><img src="img/shield.png" alt="shield"><span class="text-gray-700 font-bold">${card.resistant ? card.resistant[1] : ''}</span></p>
-              <p class="flex"><img src="img/trending_down.png" alt="trending_down"><span class="text-gray-700 font-bold">${card.weaknesses ? card.weaknesses[0] : ''}</span></p>
-            </div>
-          </div>
-        </div>`;
-        ZoneDeck.appendChild(cardHTML);
-  })
+    ZoneDeck.innerHTML = '';
+    if (myPlayCards.length === 0) {
+        ZoneDeck.innerHTML = '<p class="text-(--bg-color) text-center">No cards in deck</p>';
+        document.getElementById("nbr-Cards").textContent = '0';
+        return;
+    }
 
-  const nbrCards = document.getElementById("nbr-Cards");
-  let deckcount = ZoneDeck.children.length;
-  nbrCards.innerHTML = deckcount;
+    myPlayCards.forEach(card => {
+        const cardHTML = document.createElement('div');
+        cardHTML.className = 'deck-card cursor-pointer transform hover:scale-105 transition';
+        cardHTML.setAttribute("draggable", "true");
+        cardHTML.setAttribute("data-card-id", card.id);
+        cardHTML.setAttribute("data-card-data", JSON.stringify(card));
+        cardHTML.innerHTML = `
+            <div class="border-4 rounded-lg border-(--btn-color) w-40 relative bg-white">
+                <div class="flex">
+                    <img class="w-35 h-40 object-cover" src="${card.image}" alt="${card.name}">
+                    <h1 class="absolute top-0 right-0 w-6 h-6 bg-[#374151] rounded-full text-white font-bold text-center text-xs flex items-center justify-center">
+                        ${card.number}
+                    </h1>
+                </div>
+                <div class="flex flex-col bg-gray-100 p-2">
+                    <div class="flex justify-between items-center">
+                        <h1 class="text-(--btn-color) font-bold text-sm">${card.name}</h1>
+                        <h2 class="bg-[#374151] text-xs px-2 py-1 rounded-full text-white font-bold">
+                            ${card.types ? card.types[0] : card.types[1]}
+                        </h2>
+                    </div>
+                    <p class="text-gray-500 text-xs">${card.classification}</p>
+                    <div class="grid grid-cols-2 gap-1 text-xs mt-1">
+                        <p>HP: <span class="font-bold">${card.maxHP}</span></p>
+                        <p>CP: <span class="font-bold">${card.maxCP}</span></p>
+                    </div>
+                </div>
+            </div>`;
+        
+        ZoneDeck.appendChild(cardHTML);
+
+        cardHTML.addEventListener('dragstart', (e) => {
+            if (!currentPlayerTurn) {
+                e.preventDefault();
+                return;
+            }
+            draggedItem = cardHTML;
+            cardHTML.classList.add('opacity-50');
+        });
+
+        cardHTML.addEventListener('dragend', () => {
+            cardHTML.classList.remove('opacity-50');
+        });
+    });
+
+    document.getElementById("nbr-Cards").textContent = myPlayCards.length;
 }
-renderPCards();
+
+function initializeGame() {
+    updateHP();
+    setupEventListeners();
+    startPlayerTurn();
+}
+
+function setupEventListeners() {
+    document.getElementById('draw-card-btn').addEventListener('click', drawCard);
+    document.getElementById('end-turn-btn').addEventListener('click', endTurn);
+    document.getElementById('attack-mode').addEventListener('click', () => placeCardOnField('attack'));
+    document.getElementById('defense-mode').addEventListener('click', () => placeCardOnField('defense'));
+    document.getElementById('cancel-action').addEventListener('click', cancelCardAction);
+
+    document.querySelectorAll('.card-arena').forEach(slot => {
+        slot.addEventListener('dragover', (e) => {
+            if (currentPlayerTurn) {
+                e.preventDefault();
+            }
+        });
+        
+        slot.addEventListener('drop', (e) => {
+            if (!currentPlayerTurn || !draggedItem) return;
+            
+            e.preventDefault();
+            const slotElement = e.target.closest('.card-arena');
+            
+            if (slotElement && slotElement.classList.contains('player-slot') && 
+                slotElement.children.length === 0) {
+                
+                selectedCardForAction = {
+                    element: draggedItem,
+                    slot: slotElement
+                };
+                document.getElementById('card-action-modal').classList.remove('hidden');
+            }
+        });
+    });
+
+    const cartButton = document.getElementById('card-button');
+    const panierPopup = document.getElementById('panier-popup');
+    const closePopup = document.getElementById('close-popup');
+
+    if (cartButton && panierPopup && closePopup) {
+        cartButton.addEventListener('click', () => {
+            panierPopup.classList.toggle('hidden');
+        });
+
+        closePopup.addEventListener('click', () => {
+            panierPopup.classList.add('hidden');
+        });
+    }
+}
+
+function drawCard() {
+    if (!currentPlayerTurn) {
+        alert("Not your turn!");
+        return;
+    }
+    
+    if (turnPhase !== 'draw') {
+        alert("You can only draw at the start of your turn!");
+        return;
+    }
+    
+    if (cardsDrawnThisTurn >= maxDrawsPerTurn) {
+        alert("You can only draw one card per turn!");
+        return;
+    }
+    
+    const playerHand = document.getElementById('player-hand-cards');
+    const currentHandCount = playerHand.children.length;
+    if (currentHandCount >= 5) {
+        alert("Hand is full! Maximum 5 cards.");
+        return;
+    }
+    
+    if (myPlayCards.length === 0) {
+        alert("No more cards in deck!");
+        return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * myPlayCards.length);
+    const drawnCard = myPlayCards[randomIndex];
+    
+    myPlayCards.splice(randomIndex, 1);
+    localStorage.setItem("userdeck", JSON.stringify(myPlayCards));
+    
+    addCardToHand(drawnCard);
+    
+    document.getElementById("nbr-Cards").textContent = myPlayCards.length;
+    renderPCards();
+    
+    cardsDrawnThisTurn++;
+    turnPhase = 'main';
+    
+    document.getElementById('summon-status').textContent = "Place cards";
+    document.getElementById('turn-indicator').textContent = "Your Turn";
+}
+
+function addCardToHand(card) {
+    const playerHand = document.getElementById('player-hand-cards');
+    
+    const handCard = document.createElement('div');
+    handCard.className = 'hand-card cursor-pointer transform hover:scale-105 transition';
+    handCard.setAttribute("draggable", "true");
+    handCard.setAttribute("data-card-id", card.id);
+    handCard.setAttribute("data-card-data", JSON.stringify(card));
+    handCard.innerHTML = `
+        <div class="border-4 rounded-lg border-(--btn-color) w-32 relative bg-white">
+            <div class="flex">
+                <img class="w-28 h-32 object-cover" src="${card.image}" alt="${card.name}">
+                <h1 class="absolute top-0 right-0 w-5 h-5 bg-[#374151] rounded-full text-white font-bold text-center text-xs flex items-center justify-center">
+                    ${card.number}
+                </h1>
+            </div>
+            <div class="flex flex-col bg-gray-100 p-1">
+                <h1 class="text-(--btn-color) font-bold text-xs truncate">${card.name}</h1>
+                <div class="flex justify-between text-xs">
+                    <p>HP: <span class="font-bold">${card.maxHP || '0'}</span></p>
+                    <p>CP: <span class="font-bold">${card.maxCP || '0'}</span></p>
+                </div>
+            </div>
+        </div>`;
+    
+    playerHand.appendChild(handCard);
+    
+    handCard.addEventListener('dragstart', (e) => {
+        if (!currentPlayerTurn) {
+            e.preventDefault();
+            return;
+        }
+        draggedItem = handCard;
+        handCard.classList.add('opacity-50');
+    });
+    
+    handCard.addEventListener('dragend', () => {
+        handCard.classList.remove('opacity-50');
+    });
+    
+    handCard.addEventListener('click', () => {
+        showCardInfo(card);
+    });
+    
+    updateHandCount();
+}
+
+function updateHandCount() {
+    const handCount = document.getElementById('player-hand-cards').children.length;
+    document.getElementById('nbr-Cards-hand').textContent = handCount;
+}
+
+function placeCardOnField(mode) {
+    if (!selectedCardForAction) return;
+    
+    const { element, slot } = selectedCardForAction;
+    
+    const cardDataStr = element.getAttribute('data-card-data');
+    let cardData;
+    
+    if (cardDataStr) {
+        cardData = JSON.parse(cardDataStr);
+    } else {
+        const cardId = element.getAttribute('data-card-id');
+        cardData = allCards.find(c => c.id == cardId);
+    }
+    
+    if (!cardData) {
+        alert("Error: Card data not found!");
+        document.getElementById('card-action-modal').classList.add('hidden');
+        selectedCardForAction = null;
+        return;
+    }
+    
+    const battleCard = document.createElement('div');
+    battleCard.className = `battle-card ${mode} relative`;
+    battleCard.setAttribute('data-card-id', cardData.id);
+    battleCard.setAttribute('data-mode', mode);
+    battleCard.setAttribute('data-hp', cardData.maxHP || 50);
+    battleCard.setAttribute('data-attack', cardData.maxCP || 30);
+    battleCard.setAttribute('data-card-data', JSON.stringify(cardData));
+    
+    battleCard.innerHTML = `
+        <div class="border-4 rounded-lg ${mode === 'attack' ? 'border-red-500' : 'border-blue-500'} w-28 relative bg-white">
+            <img class="w-24 h-24 object-cover mx-auto" src="${cardData.image}" alt="${cardData.name}">
+            <div class="absolute top-0 left-0 bg-${mode === 'attack' ? 'red' : 'blue'}-500 text-white text-xs px-1 rounded-br">
+                ${mode === 'attack' ? '⚔️' : '🛡️'}
+            </div>
+            <div class="bg-gray-100 p-1 text-center">
+                <h1 class="font-bold text-xs truncate">${cardData.name}</h1>
+                <div class="flex justify-between text-xs">
+                    <span>HP: ${cardData.maxHP || '50'}</span>
+                    <span>ATK: ${cardData.maxCP || '30'}</span>
+                </div>
+            </div>
+        </div>`;
+    
+    slot.appendChild(battleCard);
+
+    if (element.parentElement.id === 'player-hand-cards') {
+        element.remove();
+        updateHandCount();
+    } else if (element.classList.contains('deck-card')) {
+        element.remove();
+        const cardIndex = myPlayCards.findIndex(c => c.id == cardData.id);
+        if (cardIndex > -1) {
+            myPlayCards.splice(cardIndex, 1);
+            localStorage.setItem("userdeck", JSON.stringify(myPlayCards));
+        }
+        renderPCards();
+    }
+    
+    document.getElementById('card-action-modal').classList.add('hidden');
+    selectedCardForAction = null;
+
+    if (turnPhase === 'draw') {
+        turnPhase = 'main';
+    }
+}
+
+function cancelCardAction() {
+    document.getElementById('card-action-modal').classList.add('hidden');
+    selectedCardForAction = null;
+}
+
+function startPlayerTurn() {
+    currentPlayerTurn = true;
+    turnPhase = 'draw';
+    cardsDrawnThisTurn = 0;
+    
+    document.getElementById('turn-indicator').textContent = "Your Turn";
+    document.getElementById('turn-indicator').classList.add('text-green-400');
+    document.getElementById('turn-indicator').classList.remove('text-red-400');
+    document.getElementById('summon-status').textContent = "Draw a card";
+    
+    if (myPlayCards.length === 0) {
+        alert("Deck is empty! Moving to main phase.");
+        turnPhase = 'main';
+        document.getElementById('turn-indicator').textContent = "Your Turn";
+        document.getElementById('summon-status').textContent = "Place cards";
+    }
+}
+
+function endTurn() {
+    if (!currentPlayerTurn) return;
+    
+    if (turnPhase === 'draw' && cardsDrawnThisTurn === 0) {
+        alert("You must draw a card before ending your turn!");
+        return;
+    }
+    
+    currentPlayerTurn = false;
+    turnPhase = 'end';
+    
+    document.getElementById('turn-indicator').textContent = "Opponent's Turn";
+    document.getElementById('turn-indicator').classList.remove('text-green-400');
+    document.getElementById('turn-indicator').classList.add('text-red-400');
+    document.getElementById('summon-status').textContent = "Waiting...";
+    
+    resolveBattles();
+    
+    // Vérifier si le jeu continue APRÈS les combats
+    if (!checkGameEnd()) {
+        setTimeout(simulateOpponentTurn, 2000);
+    }
+}
+
+function opponentDrawCard() {
+    if (opponentHand.length < 5 && opponentPlayCards.length > 0 && Math.random() > 0.3) {
+        const randomIndex = Math.floor(Math.random() * opponentPlayCards.length);
+        const drawnCard = opponentPlayCards[randomIndex];
+        opponentPlayCards.splice(randomIndex, 1);
+        opponentHand.push(drawnCard);
+        
+        updateOpponentHandDisplay();
+        return true;
+    }
+    return false;
+}
+
+function updateOpponentHandDisplay() {
+    const opponentHandContainer = document.getElementById('opponent-hand');
+    opponentHandContainer.innerHTML = '';
+    
+    opponentHand.forEach(card => {
+        const opponentCard = document.createElement('div');
+        opponentCard.className = 'opponent-hand-card bg-gray-400 w-12 h-16 rounded border';
+        opponentCard.setAttribute('data-card-id', card.id);
+        opponentHandContainer.appendChild(opponentCard);
+    });
+    
+    document.getElementById('opponent-hand-count').textContent = opponentHand.length;
+}
+
+function simulateOpponentTurn() {
+    opponentDrawCard();
+    
+    setTimeout(() => {
+        const opponentSlots = document.querySelectorAll('.opponent-attack');
+        const emptySlots = Array.from(opponentSlots).filter(slot => slot.children.length === 0);
+        
+        if (emptySlots.length > 0 && opponentHand.length > 0 && Math.random() > 0.3) {
+            const randomSlot = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+            const randomCardIndex = Math.floor(Math.random() * opponentHand.length);
+            const opponentCardData = opponentHand[randomCardIndex];
+            
+            opponentHand.splice(randomCardIndex, 1);
+            updateOpponentHandDisplay();
+            
+            const mode = Math.random() > 0.5 ? 'attack' : 'defense';
+            
+            const opponentCard = document.createElement('div');
+            opponentCard.className = `battle-card opponent ${mode} relative`;
+            opponentCard.setAttribute('data-card-id', opponentCardData.id);
+            opponentCard.setAttribute('data-mode', mode);
+            opponentCard.setAttribute('data-hp', opponentCardData.maxHP || 50);
+            opponentCard.setAttribute('data-attack', opponentCardData.maxCP || 30);
+            opponentCard.setAttribute('data-card-data', JSON.stringify(opponentCardData));
+            
+            opponentCard.innerHTML = `
+                <div class="border-4 rounded-lg ${mode === 'attack' ? 'border-red-300' : 'border-blue-300'} w-28 relative bg-gray-200">
+                    <img class="w-24 h-24 object-cover mx-auto" src="${opponentCardData.image}" alt="${opponentCardData.name}">
+                    <div class="absolute top-0 left-0 bg-${mode === 'attack' ? 'red' : 'blue'}-300 text-white text-xs px-1 rounded-br">
+                        ${mode === 'attack' ? '⚔️' : '🛡️'}
+                    </div>
+                    <div class="bg-gray-100 p-1 text-center">
+                        <h1 class="font-bold text-xs truncate">${opponentCardData.name}</h1>
+                        <div class="flex justify-between text-xs">
+                            <span>HP: ${opponentCardData.maxHP || '50'}</span>
+                            <span>ATK: ${opponentCardData.maxCP || '30'}</span>
+                        </div>
+                    </div>
+                </div>`;
+            
+            randomSlot.appendChild(opponentCard);
+        }
+        
+        setTimeout(() => {
+            resolveBattles();
+            
+            // Vérifier si le jeu continue APRÈS les combats de l'adversaire
+            if (!checkGameEnd()) {
+                setTimeout(startPlayerTurn, 1000);
+            }
+        }, 1000);
+        
+    }, 1500);
+}
+
+function resolveBattles() {
+    const playerAttackCards = document.querySelectorAll('.battle-card[data-mode="attack"]:not(.opponent)');
+    const opponentAttackCards = document.querySelectorAll('.battle-card.opponent[data-mode="attack"]');
+
+    let totalPlayerDamage = 0;
+    let totalOpponentDamage = 0;
+
+    // Calculer les dégâts du joueur
+    playerAttackCards.forEach(playerCard => {
+        const playerAttack = parseInt(playerCard.getAttribute('data-attack')) || 30;
+        totalPlayerDamage += playerAttack;
+    });
+
+    // Calculer les dégâts de l'adversaire
+    opponentAttackCards.forEach(opponentCard => {
+        const opponentAttack = parseInt(opponentCard.getAttribute('data-attack')) || 25;
+        totalOpponentDamage += opponentAttack;
+    });
+
+    // Appliquer les dégâts
+    if (totalPlayerDamage > 0) {
+        opponentHP -= totalPlayerDamage;
+        if (opponentHP < 0) opponentHP = 0;
+        console.log(`Player dealt ${totalPlayerDamage} damage! Opponent HP: ${opponentHP}`);
+    }
+
+    if (totalOpponentDamage > 0) {
+        playerHP -= totalOpponentDamage;
+        if (playerHP < 0) playerHP = 0;
+        console.log(`Opponent dealt ${totalOpponentDamage} damage! Player HP: ${playerHP}`);
+    }
+
+    updateHP();
+}
+
+function updateHP() {
+    document.getElementById('player-score').textContent = playerHP;
+    document.getElementById('opponent-score').textContent = opponentHP;
+    
+    console.log(`HP updated - Player: ${playerHP}, Opponent: ${opponentHP}`);
+}
+
+function checkGameEnd() {
+    console.log(`Checking game end - Player HP: ${playerHP}, Opponent HP: ${opponentHP}`);
+    
+    if (playerHP <= 0 || opponentHP <= 0) {
+        let winner = "";
+        if (playerHP > opponentHP) {
+            winner = "🎉 You Win the Game! 🎉";
+        } else if (opponentHP > playerHP) {
+            winner = "💀 You Lose the Game! 💀";
+        } else {
+            winner = "🤝 It's a tie! 🤝";
+        }
+        
+        // Afficher le message de fin une seule fois
+        setTimeout(() => {
+            alert(winner);
+            resetGame();
+        }, 500);
+        
+        return true;
+    }
+    return false;
+}
+
+function resetGame() {
+    console.log("Resetting game...");
+    playerHP = 100;
+    opponentHP = 100;
+
+    document.querySelectorAll('.battle-card').forEach(card => card.remove());
+    document.getElementById('player-hand-cards').innerHTML = '';
+    document.getElementById('opponent-hand').innerHTML = '';
+    myPlayCards = [...allCards];
+    opponentPlayCards = [...opponentDeck];
+    opponentHand = [];
+    
+    localStorage.setItem("userdeck", JSON.stringify(myPlayCards));
+    
+    updateHP();
+    updateHandCount();
+    document.getElementById('opponent-hand-count').textContent = '0';
+
+    renderPCards();
+    setTimeout(startPlayerTurn, 1000);
+}
+
+function showCardInfo(card) {
+    const info = `
+Name: ${card.name}
+Type: ${card.types ? card.types[0] : 'Unknown'}
+HP: ${card.maxHP || '0'}
+CP: ${card.maxCP || '0'}
+Classification: ${card.classification || 'Unknown'}`;
+    
+    alert(`Card Information:\n${info}`);
+}
+
+const menuToggle = document.getElementById('menu-toggle');
+const nav = document.querySelector('nav');
+
+if (menuToggle && nav) {
+    menuToggle.addEventListener('change', function() {
+        if (this.checked) {
+            nav.style.maxHeight = nav.scrollHeight + 'px';
+        } else {
+            nav.style.maxHeight = '0';
+        }
+    });
+}
