@@ -237,7 +237,7 @@ function renderDeckCards(page = 1) {
     `;
   });
 
-  //*********************************button pour vende les cartes*********************************
+//*********************************button pour vende les cartes*********************************
   document.querySelectorAll(".sell-button").forEach(button => {
     button.addEventListener("click", e => {
       const index = parseInt(e.target.dataset.index);
@@ -267,6 +267,7 @@ function renderDeckCards(page = 1) {
     });
   });
 
+//*********************************pagination de la page favorite*********************************
   if (paginationDeckContainer) {
     renderPagination(dataToRender.length, page, paginationDeckContainer, currentPageDeck, (newPage) => {
       currentPageDeck = newPage;
@@ -275,6 +276,7 @@ function renderDeckCards(page = 1) {
   }
 }
 
+//*********************************fonction pour filtrer par MRarty*********************************
 function filterData(data, type) {
   if (type === "all") {
     return data;
@@ -283,12 +285,14 @@ function filterData(data, type) {
   }
 }
 
+//*********************************fonction de filtrage dans page market*********************************
 function handleMarketFilter(type) {
   filteredCardsData = filterData(cardsData, type);
   currentPage = 1;
   renderCard(filteredCardsData, currentPage);
 }
 
+//*********************************fonction de filtrage dans page favorite*********************************
 function handleFavFilter(type) {
   const favCards = JSON.parse(localStorage.getItem("userFavouriteCards")) || [];
   filteredFavData = filterData(favCards, type);
@@ -296,6 +300,7 @@ function handleFavFilter(type) {
   renderFavoriteCards(currentPageFav);
 }
 
+//*********************************fonction de filtrage dans page mydeck*********************************
 function handleDeckFilter(type) {
   const userDeck = JSON.parse(localStorage.getItem("userdeck")) || [];
   filteredDeckData = filterData(userDeck, type);
@@ -303,6 +308,7 @@ function handleDeckFilter(type) {
   renderDeckCards(currentPageDeck);
 }
 
+//*********************************fonction de pagination*********************************
 function renderPagination(totalCards, page, container, currentPage, onPageChange) {
   if (!container) return;
 
@@ -363,6 +369,7 @@ function renderPagination(totalCards, page, container, currentPage, onPageChange
   }
 }
 
+//*********************************fonction d'ajouter une carte dans panier*********************************
 function attachCardEvents(data) {
   const payButtons = document.querySelectorAll('.panier-button');
   const favButtons = document.querySelectorAll('.favourite-button');
@@ -396,6 +403,7 @@ function attachCardEvents(data) {
   });
 }
 
+//*********************************filtrer*********************************
 if (cardCategory) {
   cardCategory.addEventListener('click', (e) => {
     if (e.target.tagName === "BUTTON") {
@@ -443,6 +451,7 @@ if (popup && panierButton) {
   });
 }
 
+//*********************************fonction de popap panier*********************************
 function renderMyCard() {
   if (!popup) return;
   let myCards = JSON.parse(localStorage.getItem('usercart')) || [];
@@ -463,10 +472,12 @@ function renderMyCard() {
 
   myCards = myCards.map(card => ({ ...card, currentQty: card.currentQty || 1 }));
 
+//*********************************fonction calculer totale prix des cartes*********************************
   function calculateTotal() {
     return myCards.reduce((sum, card) => sum + card.prix * card.currentQty, 0);
   }
 
+//*********************************fonction pour refresh le panier*********************************
   function refreshPopup() {
     let total = calculateTotal();
     let cardsHTML = '';
@@ -504,6 +515,7 @@ function renderMyCard() {
         <button id="order-panier" class="bg-(--btn-color) text-(--bg-color) px-5 py-2 rounded-lg hover:bg-(--color-text) transition">Order</button>
       </div>`;
 
+//*********************************gestion des events dans panier*********************************
     document.getElementById('close-popup').addEventListener('click', () => {
       popup.classList.add('hidden');
     });
@@ -532,6 +544,7 @@ function renderMyCard() {
       if (deckContainer) renderDeckCards(currentPageDeck);
     });
 
+//*********************************supp une card dans le panier*********************************
     document.querySelectorAll('.remove-card').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const index = parseInt(e.target.getAttribute('data-index'));
@@ -542,6 +555,7 @@ function renderMyCard() {
       });
     });
 
+//********************************incremente quantity*********************************
     document.querySelectorAll('.qty-plus').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -552,6 +566,7 @@ function renderMyCard() {
       });
     });
 
+//*********************************decrement quantity*********************************
     document.querySelectorAll('.qty-minus').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -588,6 +603,7 @@ const opponentHandContainer = document.getElementById("opponent-hand");
 let opponentHand = [];
 let opponentPlayCards = [...opponentDeck];
 
+//*********************************ajouter le panier dans page play*********************************
 document.addEventListener('DOMContentLoaded', function() {
     renderPCards();
     initializeGame();
@@ -602,6 +618,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+//*********************************fonction designer les cartes dans page play*********************************
 function renderPCards() {
     ZoneDeck.innerHTML = '';
     if (myPlayCards.length === 0) {
@@ -664,6 +682,7 @@ function initializeGame() {
     startPlayerTurn();
 }
 
+//*********************************fonction qui gere le click (draw, end turn,attaque,defense...) et les drop dans page play*********************************
 function setupEventListeners() {
     document.getElementById('draw-card-btn').addEventListener('click', drawCard);
     document.getElementById('end-turn-btn').addEventListener('click', endTurn);
@@ -711,6 +730,7 @@ function setupEventListeners() {
     }
 }
 
+//*********************************fonction de draw les cartes dans page play*********************************
 function drawCard() {
     if (!currentPlayerTurn) {
         alert("Not your turn!");
@@ -757,6 +777,7 @@ function drawCard() {
     document.getElementById('turn-indicator').textContent = "Your Turn";
 }
 
+//*********************************fonction qui ajouter les cartes dans main dans page play*********************************
 function addCardToHand(card) {
     const playerHand = document.getElementById('player-hand-cards');
     
@@ -883,6 +904,7 @@ function cancelCardAction() {
     selectedCardForAction = null;
 }
 
+//*********************************fonction gere le tour de player principale (ici c'est moi) d'un carte dans page play*********************************
 function startPlayerTurn() {
     currentPlayerTurn = true;
     turnPhase = 'draw';
@@ -901,6 +923,7 @@ function startPlayerTurn() {
     }
 }
 
+//*********************************fonction qui gere le role de button end turn dans page play*********************************
 function endTurn() {
     if (!currentPlayerTurn) return;
     
@@ -949,6 +972,7 @@ function updateOpponentHandDisplay() {
     document.getElementById('opponent-hand-count').textContent = opponentHand.length;
 }
 
+//*********************************fonction gere le tour d'autre player dans page play*********************************
 function simulateOpponentTurn() {
     opponentDrawCard();
     
@@ -1005,6 +1029,7 @@ function simulateOpponentTurn() {
     }, 1500);
 }
 
+//*********************************fonction qui tester who win dans page play*********************************
 function checkArenaFull() {
     const playerSlots = document.querySelectorAll('.player-slot');
     const opponentSlots = document.querySelectorAll('.opponent-attack');
@@ -1062,6 +1087,7 @@ function updateHP() {
     console.log(`HP updated - Player:${playerHP}, Opponent: ${opponentHP}`);
 }
 
+//*********************************fonction qui restartle jeux dans page play*********************************
 function resetGame() {
     console.log("Restarting the game...");
     playerHP = 100;
@@ -1084,6 +1110,7 @@ function resetGame() {
     setTimeout(startPlayerTurn, 1000);
 }
 
+//*********************************fonction afficher les informations d'un carte dans page play*********************************
 function showCardInfo(card) {
     const info = `
 Nom: ${card.name}
