@@ -47,38 +47,38 @@
     </div>
     <div id="my-card-container"></div>
 
-    <main class="grid [grid-template-areas:'leftbar_header_header_header_header_header'_'leftbar_main_main_main_main_rightbar'_'leftbar_footer_footer_footer_footer_rightbar'] grid-cols-6 grid-rows-3 items-center justify-center px-8 mt-[2%] mb-[2%] max-md:flex-col max-md:gap-6 h-280 max-md:h-screen gap-2">
-        <div class="[grid-area:leftbar] bg-(--btn-color) h-[100%] p-[2%] flex flex-col gap-5 rounded-sm"> 
+    <main class="grid grid-cols-10 grid-rows-9 items-center justify-center px-4 max-md:flex-col max-md:gap-2 h-screen gap-2">
+        <div class="col-span-2 row-span-9 bg-(--btn-color) h-[100%] p-[2%] flex flex-col gap-5 rounded-sm"> 
             <button id="draw-card-btn" type="submit" class="ml-[5%] text-center text-(--bg-color) cursor-pointer w-[90%] bg-green-500 rounded-sm p-[1%]">Draw Card</button>
             <p class="font-bold text-(--bg-color)">Deck (<span id="nbr-Cards"></span>)</p>
             <div id="zone_deck" class="flex flex-col overflow-y-auto items-center gap-5"></div>
         </div>
 
-        <div id="ZoneAdversaire" class="[grid-area:header] bg-(--btn-color) h-[100%] p-[2%] flex flex-col gap-5 rounded-sm"> 
+        <div id="ZoneAdversaire" class="col-span-8 row-span-2 bg-(--btn-color) h-[100%] p-[2%] flex flex-col gap-5 rounded-sm"> 
             <div class="text-red-500 ml-[5%] font-extrabold text-center w-[90%] bg-(--bg-color)/8 rounded-sm">
-                Score: <span id="opponent-score">0</span>
+                Score: <span id="opponent-score">100</span>
             </div>
             <div class="text-(--bg-color) font-bold text-center">
-                Opponent Hand (<span id="opponent-hand-count">0</span>)
+                Opponent Hand (<span id="opponent-hand-count">100</span>)
                 <div id="opponent-hand" class="flex gap-2 mt-2 justify-center"></div>
             </div>
         </div>
 
-        <div id="Cards-arena" class="[grid-area:main] bg-(--btn-color) w-[100%] h-[100%] grid grid-cols-5 grid-rows-2 p-[2%] gap-2 rounded-sm"> 
-            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-32 max-md:min-h-10"></div>
+        <div id="Cards-arena" class="col-span-6 row-span-4 bg-(--btn-color) grid grid-cols-5 grid-rows-2 p-[2%] gap-2 rounded-sm"> 
+            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-35"></div>
+            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-35"></div>
+            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-35"></div>
+            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-35"></div>
+            <div class="card-arena opponent-attack border-2 border-dotted border-red-300 min-h-35"></div>
             
-            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-32 max-md:min-h-10"></div>
-            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-32 max-md:min-h-10"></div>
+            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-35"></div>
+            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-35"></div>
+            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-35"></div>
+            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-35"></div>
+            <div class="card-arena player-slot border-2 border-dotted border-green-300 min-h-35"></div>
         </div>
 
-        <div id="Dashbord" class="[grid-area:rightbar] bg-(--btn-color) h-[100%] flex flex-col gap-5 p-[2%] rounded-sm"> 
+        <div id="Dashbord" class="col-span-2 row-span-7 bg-(--btn-color) h-[100%] flex flex-col gap-5 p-[2%] rounded-sm"> 
             <p class="font-bold text-center w-[90%] bg-(--bg-color)/8 text-(--bg-color) rounded-sm ml-[5%]">
                 Score: <span id="player-score">0</span>
             </p>
@@ -87,7 +87,7 @@
             <button id="end-turn-btn" type="submit" class="ml-[5%] text-center text-(--bg-color) justify-self-center cursor-pointer w-[90%] bg-green-500 rounded-sm p-[1%]">End Turn</button>
         </div>
 
-        <div id="mainHand" class="[grid-area:footer] bg-(--btn-color) h-[100%] p-[2%] rounded-sm"> 
+        <div id="mainHand" class="col-span-6 row-span-3 bg-(--btn-color) h-[100%] p-[2%] rounded-sm"> 
             <p class="font-bold text-(--bg-color)">Hand (<span id="nbr-Cards-hand">0</span>/5)</p>
             <div id="player-hand-cards" class="flex gap-2 overflow-x-auto py-2 max-md:overflow-y-auto"></div>
         </div>
