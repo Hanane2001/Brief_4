@@ -591,6 +591,15 @@ let opponentPlayCards = [...opponentDeck];
 document.addEventListener('DOMContentLoaded', function() {
     renderPCards();
     initializeGame();
+    const popup = document.getElementById('panier-popup');
+    const panierButton = document.getElementById('card-button');
+
+    if (popup && panierButton) {
+        panierButton.addEventListener('click', () => {
+            popup.classList.toggle('hidden');
+            renderMyCard(); 
+        });
+    }
 });
 
 function renderPCards() {
